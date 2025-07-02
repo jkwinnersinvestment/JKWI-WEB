@@ -1,0 +1,148 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Admin Panel</title>
+  <style>
+    #drop-area {
+      border: 2px dashed #2a5298;
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      color: #2a5298;
+      margin-bottom: 16px;
+      background: #f4f8fb;
+      cursor: pointer;
+    }
+    #drop-area.dragover {
+      background: #e3f0fc;
+    }
+    #preview {
+      margin-top: 10px;
+      max-width: 300px;
+      max-height: 200px;
+      display: none;
+    }
+    #login-box {
+      max-width: 350px;
+      margin: 60px auto;
+      padding: 32px 24px;
+      border-radius: 12px;
+      background: #f4f8fb;
+      box-shadow: 0 4px 24px rgba(30,60,114,0.08);
+      text-align: center;
+    }
+    #login-box input {
+      margin: 8px 0;
+      padding: 8px;
+      width: 90%;
+      border-radius: 6px;
+      border: 1px solid #2a5298;
+    }
+    #login-box button {
+      margin-top: 12px;
+      padding: 10px 32px;
+      background: linear-gradient(90deg, #2a5298 0%, #1e3c72 100%);
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #login-error {
+      color: #b00;
+      margin-top: 8px;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div id="login-box">
+    <h2>Admin Login</h2>
+    <input type="text" id="username" placeholder="Username"><br>
+    <input type="password" id="password" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+    <div id="login-error"></div>
+  </div>
+
+  <div id="admin-panel" style="display:none;">
+    <h2>Update Widget Content</h2>
+    <form id="adminForm">
+      <div id="drop-area">
+        <p>Drag & drop an image here, or click to select</p>
+        <input type="file" id="imageFile" accept="image/*" style="display:none">
+        <img id="preview" src="#" alt="Image Preview">
+      </div>
+      <label>Widget Text:<br>
+        <textarea id="widgetText" rows="4" cols="40"></textarea>
+      </label><br><br>
+      <button type="submit">Save</button>
+    </form>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    // Simple client-side login (for demo only, not secure for production)
+    const AUTH_USER = "admin";
+    const AUTH_PASS = "password123";
+
+    function login() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user === AUTH_USER && pass === AUTH_PASS) {
+        document.getElementById('login-box').style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'block';
+      } else {
+        document.getElementById('login-error').textContent = "Invalid username or password.";
+      }
+    }
+
+    // Drag & drop image logic
+    const dropArea = document.getElementById('drop-area');
+    const imageInput = document.getElementById('imageFile');
+    const preview = document.getElementById('preview');
+    let imageDataUrl = "";
+
+    dropArea.addEventListener('click', () => imageInput.click());
+    dropArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropArea.classList.add('dragover');
+    });
+    dropArea.addEventListener('dragleave', () => {
+      dropArea.classList.remove('dragover');
+    });
+    dropArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropArea.classList.remove('dragover');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+    imageInput.addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        handleFile(this.files[0]);
+      }
+    });
+
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        imageDataUrl = e.target.result;
+        preview.src = imageDataUrl;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    document.getElementById('adminForm').onsubmit = function(e) {
+      e.preventDefault();
+      if (!imageDataUrl) {
+        document.getElementById('status').textContent = 'Please upload an image.';
+        return;
+      }
+      document.getElementById('status').textContent = 'Saved (demo only, needs backend to actually save)';
+    };
+  </script>
+</body>
+</html>
