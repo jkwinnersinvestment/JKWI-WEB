@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Operator Daily Hours</title>
+    <style>
+        /* Add this to your <style> section for mobile responsiveness */
+        html, body {
+            width: 100vw;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+        body {
+            /* already has background and centering */
+            width: 100vw;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 100vw;
+            width: 100%;
+            min-width: 0;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 16px 4vw 16px 4vw;
+            /* Remove fixed width for mobile */
+        }
+        .logo-img {
+            width: 1.6cm;
+            height: 1.6cm;
+            min-width: 32px;
+            min-height: 32px;
+            max-width: 48px;
+            max-height: 48px;
+            top: 12px;
+            left: 12px;
+        }
+        .operator-img {
+            width: 80px;
+            height: 80px;
+            margin-top: 24px;
+        }
+        .hours-table-section table,
+        #hoursTable {
+            font-size: 0.95em;
+        }
+        input, select, button {
+            font-size: 1em;
+            max-width: 100vw;
+            box-sizing: border-box;
+        }
+        #payModal .pay-modal-content,
+        #historyModal > div,
+        #checkInModal > div {
+            max-width: 98vw !important;
+            width: 98vw !important;
+            min-width: 0 !important;
+            padding: 12px 2vw 12px 2vw !important;
+            border-radius: 12px !important;
+        }
+        #imgZoomModal img,
+        #imgZoomModalMain img {
+            max-width: 96vw !important;
+            max-height: 70vh !important;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 8px 0 8px 0;
+                border-radius: 0;
+                box-shadow: none;
+                margin: 0;
+            }
+            .logo-img {
+                width: 1.2cm;
+                height: 1.2cm;
+                min-width: 28px;
+                min-height: 28px;
+                max-width: 40px;
+                max-height: 40px;
+                top: 8px;
+                left: 8px;
+            }
+            .operator-img {
+                width: 60px;
+                height: 60px;
+                margin-top: 16px;
+            }
+            .pay-btn {
+                width: 0.6cm;
+                height: 0.6cm;
+                top: 8px;
+                right: 8px;
+            }
+            .checkin-btn {
+                width: 0.6cm;
+                height: 0.6cm;
+            }
+            #payModal .pay-modal-content,
+            #historyModal > div,
+            #checkInModal > div {
+                padding: 8px 1vw 8px 1vw !important;
+                border-radius: 8px !important;
+            }
+            #imgZoomModal img,
+            #imgZoomModalMain img {
+                max-width: 94vw !important;
+                max-height: 60vh !important;
+            }
+            table#hoursTable th, table#hoursTable td {
+                padding: 8px 2px;
+                font-size: 0.95em;
+            }
+        }
+
+        body {
+            background: linear-gradient(120deg, #e3f0fc 0%, #b6d6f6 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: #fff;
+            border-radius: 32px;
+            box-shadow: 0 8px 32px rgba(30,60,114,0.13);
+            padding: 32px 24px 32px 24px;
+            max-width: 370px;
+            width: 100%;
+            margin: 32px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .logo-img {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            width: 2.2cm;
+            height: 2.2cm;
+            object-fit: contain;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(30,60,114,0.10);
+            background: #fff;
+        }
+        .operator-img {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #2a5298;
+            box-shadow: 0 4px 16px rgba(30,60,114,0.10);
+            margin: 0 auto 16px auto;
+            background: #f4f8fb;
+            display: block;
+        }
+        .operator-number {
+            font-size: 1.2em;
+            color: #1e3c72;
+            font-weight: bold;
+            margin-bottom: 4px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .operator-name {
+            font-size: 1.1em;
+            color: #2a5298;
+            margin-bottom: 24px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .hours-table-section {
+            width: 100%;
+            margin-top: 0;
+        }
+        table#hoursTable {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #f4f8fb;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(30,60,114,0.06);
+            margin: 0 auto 0 auto;
+        }
+        table#hoursTable th, table#hoursTable td {
+            padding: 14px 10px;
+            text-align: center;
+            font-size: 1.05em;
+        }
+        table#hoursTable th {
+            background: #2a5298;
+            color: #fff;
+            border: none;
+        }
+        table#hoursTable tr {
+            border-radius: 18px;
+        }
+        table#hoursTable td {
+            background: #fff;
+            border: none;
+        }
+        .img-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1.5px solid #2a5298;
+            cursor: pointer;
+            transition: box-shadow 0.2s;
+            background: #f4f8fb;
+        }
+        .img-thumb:hover {
+            box-shadow: 0 0 12px #2a5298;
+        }
+        .img-upload-label {
+            display: none; /* Hide operator photo upload */
+        }
+        .img-upload-input {
+            display: none;
+        }
+        #imgZoomModal {
+            display: none;
+            position: fixed;
+            z-index: 10001;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            background: rgba(30,60,114,0.7);
+            align-items: center;
+            justify-content: center;
+        }
+        #imgZoomModal img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px #0008;
+            background: #fff;
+            display: block;
+            margin: auto;
+        }
+        #imgZoomModal:active {
+            cursor: zoom-out;
+        }
+        .hours-status {
+            margin-top: 12px;
+            color: green;
+            font-size: 1em;
+            min-height: 24px;
+            text-align: center;
+        }
+        /* Make sure modal is above history modal */
+        #imgZoomModal {
+            z-index: 10002;
+        }
+        /* PAY BUTTON */
+        .pay-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 0.75cm;
+            height: 0.75cm;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            box-shadow: 0 2px 8px rgba(30,60,114,0.13);
+            cursor: pointer;
+            z-index: 100;
+            transition: background 0.3s;
+            overflow: hidden;
+        }
+        .pay-btn.red {
+            background: #e53935;
+        }
+        .pay-btn.green {
+            background: #43a047;
+        }
+        /* Pay Modal */
+        #payModal {
+            display: none;
+            position: fixed;
+            z-index: 10010;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            background: rgba(30,60,114,0.18);
+            align-items: center;
+            justify-content: center;
+        }
+        #payModal .pay-modal-content {
+            background: #fff;
+            border-radius: 18px;
+            padding: 32px 24px 24px 24px;
+            box-shadow: 0 4px 24px rgba(30,60,114,0.18);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            margin: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #payModal .logo-img {
+            position: static;
+            margin-bottom: 18px;
+            width: 2.2cm;
+            height: 2.2cm;
+            object-fit: contain;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(30,60,114,0.10);
+            background: #fff;
+            display: block;
+        }
+        #payModal .pay-summary {
+            margin-top: 0;
+            font-size: 1.1em;
+            color: #1e3c72;
+            text-align: left;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+        #payModal .pay-btn {
+            position: static;
+            margin: 24px auto 0 auto;
+            display: block;
+            width: 2.5cm;
+            height: 2.5cm;
+            font-size: 1.3em;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+        #payModal .pay-message {
+            margin-top: 24px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #e53935;
+            text-align: center;
+            width: 100%;
+        }
+        #payModal .pay-message.green {
+            color: #43a047;
+        }
+        .checkin-btn {
+            width: 0.75cm;
+            height: 0.75cm;
+            border-radius: 50%;
+            background: #e53935;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 4px;
+        }
+        .checkin-btn.knockoff {
+            background: #43a047;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo in top left corner, new image and size, now clickable for zoom -->
+        <img src="C:/Users/jacob/Documents/NEW LOGO PNG/MINING.png" alt="Logo" class="logo-img" id="mainLogo" style="cursor:pointer;">
+
+        <!-- PAY BUTTON top right (small, no text) -->
+        <button id="payBtn" class="pay-btn" title="Pay"></button>
+
+        <!-- Operator Image (display only, no upload) -->
+        <img id="operatorImg" class="operator-img" src="" alt="Operator Photo" style="display:block;">
+        <!-- Operator Number -->
+        <div class="operator-number" id="operatorNumber"></div>
+        <!-- Operator Name -->
+        <div class="operator-name" id="operatorName"></div>
+
+        <!-- Check In Button and Status -->
+        <div style="display:flex; flex-direction:column; align-items:center; margin-bottom:16px;">
+            <button id="checkInBtn" class="checkin-btn" style="margin-bottom:6px;"> </button>
+            <div id="checkInText" style="font-size:1.1em; color:#e53935; font-weight:bold;">Check In</div>
+        </div>
+
+        <!-- Daily Hours Worked Text Widget -->
+        <section id="hours-widget" style="width:100%;">
+            <h3 style="color:#1e3c72; margin-bottom:12px; margin-top:0;">Today's Hours Entry</h3>
+            <input type="date" id="hoursDate" style="padding:8px; font-size:1em; border-radius:8px; border:1px solid #b6d6f6; background:#f4f8fb;" readonly>
+            <input type="number" id="hoursInput" min="0" max="24" placeholder="Hours worked today" style="padding:8px; font-size:1em; border-radius:8px; border:1px solid #b6d6f6; background:#f4f8fb;">
+            <input type="file" id="proofInput" accept="image/*" style="display:none;">
+            <label for="proofInput" class="img-upload-label" style="margin-top:8px;">Upload Counter Proof</label>
+            <img id="proofPreview" class="img-thumb" style="display:none; margin-left:10px;">
+            <button onclick="saveHours()" style="padding:8px 24px; font-size:1em; border-radius:24px; background:linear-gradient(90deg,#2a5298 0%,#1e3c72 100%); color:#fff; border:none; font-weight:bold; margin-top:10px;">Save</button>
+            <div id="hoursStatus" class="hours-status"></div>
+        </section>
+
+        <!-- Spreadsheet Table (only today's row) -->
+        <section class="hours-table-section">
+            <table id="hoursTable" style="margin-top:18px;">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Hours Worked</th>
+                        <th>Counter Proof</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Only today's record will appear here -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- History Button and Month Selector -->
+        <div style="width:100%; text-align:center; margin-top:24px;">
+            <label for="historyMonth" style="font-weight:bold; color:#1e3c72;">Choose Month:</label>
+            <select id="historyMonth" style="padding:6px 12px; font-size:1em; margin-right:12px; border-radius:8px; border:1px solid #b6d6f6; background:#f4f8fb;"></select>
+            <button id="historyBtn" style="padding:8px 24px; font-size:1em; border-radius:24px; background:linear-gradient(90deg,#2a5298 0%,#1e3c72 100%); color:#fff; border:none; font-weight:bold;">Show History</button>
+            <button id="downloadBtn" style="padding:8px 24px; font-size:1em; border-radius:24px; background:linear-gradient(90deg,#1e3c72 0%,#2a5298 100%); color:#fff; border:none; font-weight:bold; margin-left:10px;">Download PDF</button>
+        </div>
+
+        <!-- History Preview Modal -->
+        <div id="historyModal" style="display:none; position:fixed; z-index:10000; left:0; top:0; width:100vw; height:100vh; background:rgba(30,60,114,0.18); align-items:center; justify-content:center;">
+            <div style="background:#fff; border-radius:18px; padding:32px; box-shadow:0 4px 24px rgba(30,60,114,0.18); max-width:500px; width:90%; text-align:center; margin:auto; position:relative;">
+                <h3 style="color:#1e3c72;">Past Hours History</h3>
+                <table id="historyTable" border="1" cellpadding="8" style="border-collapse:collapse; min-width:300px; margin:auto; border-radius:12px; overflow:hidden;">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Hours Worked</th>
+                            <th>Counter Proof</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Past records will appear here -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Total</th>
+                            <th id="historyTotal">0</th>
+                            <th></th>
+                        </tr>
+                        <tr id="currentRow" style="background:#e3f0fc;">
+                            <th>Current</th>
+                            <th id="currentHours">0</th>
+                            <th id="currentProof"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <button onclick="closeHistory()" style="margin-top:18px; padding:8px 32px; background:linear-gradient(90deg,#2a5298 0%,#1e3c72 100%); color:#fff; border:none; border-radius:24px; font-weight:bold; cursor:pointer;">Close</button>
+            </div>
+            <!-- Zoom Modal appears in front of history modal -->
+            <div id="imgZoomModal" style="display:none; position:fixed; z-index:10002; left:0; top:0; width:100vw; height:100vh; background:rgba(30,60,114,0.7); align-items:center; justify-content:center;">
+                <img id="imgZoomed" src="" alt="Zoomed Proof">
+            </div>
+        </div>
+
+        <!-- Check In Preview Modal -->
+        <div id="checkInModal" style="display:none; position:fixed; z-index:10010; left:0; top:0; width:100vw; height:100vh; background:rgba(30,60,114,0.18); align-items:center; justify-content:center;">
+            <div style="background:#fff; border-radius:18px; padding:24px; box-shadow:0 4px 24px rgba(30,60,114,0.18); max-width:400px; width:90%; text-align:center; margin:auto; position:relative; display:flex; flex-direction:column; align-items:center;">
+                <!-- Logo in modal -->
+                <img src="C:/Users/jacob/Documents/NEW LOGO PNG/MINING.png" alt="Logo" class="logo-img" style="position:static; margin-bottom:18px;">
+                <h3 style="color:#1e3c72; margin-top:0;">Check In Preview</h3>
+                <div id="map" style="width:100%;height:220px;border-radius:12px;box-shadow:0 2px 8px #b6d6f6;margin-bottom:18px;"></div>
+                <button id="doCheckInBtn" class="checkin-btn" style="margin-bottom:8px;"> </button>
+                <div id="checkInStatus" style="font-size:1em; color:#e53935; font-weight:bold;"></div>
+                <button onclick="closeCheckInModal()" style="margin-top:18px; padding:8px 32px; background:linear-gradient(90deg,#2a5298 0%,#1e3c72 100%); color:#fff; border:none; border-radius:24px; font-weight:bold; cursor:pointer;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for zoomed image (for main page, not history modal) -->
+    <div id="imgZoomModalMain" onclick="closeZoomMain()" style="display:none; position:fixed; z-index:10002; left:0; top:0; width:100vw; height:100vh; background:rgba(30,60,114,0.7); align-items:center; justify-content:center;">
+        <img id="imgZoomedMain" src="" alt="Zoomed Proof">
+    </div>
+
+    <!-- Logo Zoom Modal -->
+    <div id="logoZoomModal" style="display:none; position:fixed; z-index:10003; left:0; top:0; width:100vw; height:100vh; background:rgba(30,60,114,0.7); align-items:center; justify-content:center; flex-direction:column;">
+        <img src="C:/Users/jacob/Documents/NEW LOGO PNG/MINING.png" alt="Logo Zoomed" style="width:220px; height:220px; object-fit:contain; border-radius:18px; box-shadow:0 8px 32px #0008; background:#fff; margin-bottom:18px;">
+        <div style="color:#fff; font-size:2em; font-weight:bold; letter-spacing:2px; text-shadow:0 2px 8px #000a;">MINING DIVISION</div>
+        <div style="color:#fff; font-size:1.2em; margin-top:8px; letter-spacing:1px; text-shadow:0 2px 8px #000a;">rental section</div>
+    </div>
+
+    <!-- PAY MODAL -->
+    <div id="payModal">
+        <div class="pay-modal-content">
+            <!-- Logo in modal -->
+            <img src="C:/Users/jacob/Documents/NEW LOGO PNG/MINING.png" alt="Logo" class="logo-img">
+            <div style="width:100%;">
+                <h2 style="color:#1e3c72; margin-top:0; margin-bottom:18px;">Monthly Payment Preview</h2>
+                <div class="pay-summary" id="paySummary"></div>
+                <button id="payActionBtn" class="pay-btn" style="width:2.5cm;height:2.5cm;font-size:1.3em; margin-top:24px;">PAY</button>
+                <div class="pay-message" id="payMessage" style="display:none;"></div>
+                <button onclick="closePayModal()" style="margin-top:18px; padding:8px 32px; background:linear-gradient(90deg,#2a5298 0%,#1e3c72 100%); color:#fff; border:none; border-radius:24px; font-weight:bold; cursor:pointer;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // --- Operator Info ---
+        function setOperatorInfo() {
+            let opNum = localStorage.getItem('operatorNumber');
+            let opName = localStorage.getItem('operatorName');
+            let opImg = localStorage.getItem('operatorImg');
+            if (!opNum) {
+                opNum = prompt("Enter Operator Number:", "M001") || "M001";
+                localStorage.setItem('operatorNumber', opNum);
+            }
+            if (!opName) {
+                opName = prompt("Enter Operator Full Name:", "John Doe") || "John Doe";
+                localStorage.setItem('operatorName', opName);
+            }
+            if (opImg) {
+                document.getElementById('operatorImg').src = opImg;
+                document.getElementById('operatorImg').style.display = 'block';
+            }
+            document.getElementById('operatorNumber').textContent = opNum;
+            document.getElementById('operatorName').textContent = opName;
+        }
+
+        // --- Daily Hours Logic ---
+        window.onload = function() {
+            setOperatorInfo();
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedToday = `${yyyy}-${mm}-${dd}`;
+            const dateInput = document.getElementById('hoursDate');
+            dateInput.value = formattedToday;
+            dateInput.readOnly = true;
+            dateInput.onkeydown = function(e) { e.preventDefault(); };
+            loadTable();
+            populateMonths();
+        };
+
+        // Handle image upload and preview for counter proof
+        let proofImageData = "";
+        document.getElementById('proofInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    proofImageData = evt.target.result;
+                    document.getElementById('proofPreview').src = proofImageData;
+                    document.getElementById('proofPreview').style.display = 'inline-block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function saveHours() {
+            const date = document.getElementById('hoursDate').value;
+            const hours = document.getElementById('hoursInput').value;
+            let records = JSON.parse(localStorage.getItem('hoursRecords') || "[]");
+            const existingRecordIndex = records.findIndex(record => record.date === date);
+            let proof = proofImageData;
+            if (existingRecordIndex > -1 && !proofImageData) {
+                proof = records[existingRecordIndex].proof || "";
+            }
+            if (!date || hours === "" || hours < 0 || hours > 24) {
+                document.getElementById('hoursStatus').style.color = "red";
+                document.getElementById('hoursStatus').textContent = "Please enter a valid date and number of hours (0-24).";
+                return;
+            }
+            if (existingRecordIndex > -1) {
+                records[existingRecordIndex].hours = hours;
+                records[existingRecordIndex].proof = proof;
+            } else {
+                records.push({ date, hours, proof });
+            }
+            localStorage.setItem('hoursRecords', JSON.stringify(records));
+            document.getElementById('hoursStatus').style.color = "green";
+            document.getElementById('hoursStatus').textContent = "Hours saved: " + hours;
+            proofImageData = "";
+            document.getElementById('proofInput').value = "";
+            document.getElementById('proofPreview').style.display = 'none';
+            loadTable();
+            populateMonths();
+        }
+
+        function loadTable() {
+            let records = JSON.parse(localStorage.getItem('hoursRecords') || "[]");
+            const tableBody = document.getElementById('hoursTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = "";
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedToday = `${yyyy}-${mm}-${dd}`;
+            // Only show today's record
+            let record = records.find(r => r.date === formattedToday);
+            if (record) {
+                let row = tableBody.insertRow();
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
+                cell1.textContent = record.date;
+                cell2.innerHTML = `<input type="number" min="0" max="24" value="${record.hours}" style="width:60px; border-radius:8px; border:1px solid #b6d6f6; background:#f4f8fb;" id="editHoursInput">`;
+                cell4.innerHTML = `<button onclick="editTodayHours()" style="padding:6px 18px; border-radius:18px; background:linear-gradient(90deg,#2a5298 0%,#1e3c72 100%); color:#fff; border:none; font-weight:bold;">Update</button>`;
+                cell3.innerHTML = record.proof ? `<img src="${record.proof}" class="img-thumb" onclick="zoomImgMain('${record.proof.replace(/'/g,"\\'")}')">` : '';
+            }
+        }
+
+        // Allow editing today's hours directly in the table
+        function editTodayHours() {
+            const input = document.getElementById('editHoursInput');
+            const newHours = input.value;
+            if (newHours === "" || newHours < 0 || newHours > 24) {
+                alert("Please enter a valid number of hours (0-24).");
+                return;
+            }
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedToday = `${yyyy}-${mm}-${dd}`;
+            let records = JSON.parse(localStorage.getItem('hoursRecords') || "[]");
+            const existingRecordIndex = records.findIndex(record => record.date === formattedToday);
+            if (existingRecordIndex > -1) {
+                records[existingRecordIndex].hours = newHours;
+                localStorage.setItem('hoursRecords', JSON.stringify(records));
+                loadTable();
+                document.getElementById('hoursStatus').style.color = "green";
+                document.getElementById('hoursStatus').textContent = "Today's hours updated to: " + newHours;
+            }
+        }
+
+        // Zoom image logic for main page
+        function zoomImgMain(src) {
+            var modal = document.getElementById('imgZoomModalMain');
+            var img = document.getElementById('imgZoomedMain');
+            img.src = src;
+            modal.style.display = 'flex';
+        }
+        function closeZoomMain() {
+            document.getElementById('imgZoomModalMain').style.display = 'none';
+        }
+
+        // Zoom image logic for history modal
+        function zoomImg(src) {
+            var modal = document.querySelector('#historyModal #imgZoomModal');
+            var img = modal.querySelector('img');
+            img.src = src;
+            modal.style.display = 'flex';
+
+            // Add a one-time click handler to the zoomed image to close the modal
+            img.onclick = function(e) {
+                e.stopPropagation();
+                modal.style.display = 'none';
+                img.onclick = null; // Remove handler after use
+            };
+            // Also allow clicking outside the image to close
+            modal.onclick = function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    img.onclick = null;
+                }
+            };
+        }
+        function closeZoom() {
+            var modal = document.querySelector('#historyModal #imgZoomModal');
+            modal.style.display = 'none';
+            var img = modal.querySelector('img');
+            if (img) img.onclick = null;
+        }
+
+        // Populate months in the select dropdown
+        function populateMonths() {
+            let records = JSON.parse(localStorage.getItem('hoursRecords') || "[]");
+            let months = new Set();
+            records.forEach(r => {
+                if (r.date) {
+                    let month = r.date.slice(0, 7); // yyyy-mm
+                    months.add(month);
+                }
+            });
+            let monthsArr = Array.from(months).sort((a, b) => b.localeCompare(a));
+            let select = document.getElementById('historyMonth');
+            select.innerHTML = "";
+            monthsArr.forEach(month => {
+                let option = document.createElement('option');
+                option.value = month;
+                let [y, m] = month.split('-');
+                let monthName = new Date(y, m - 1).toLocaleString('default', { month: 'long' });
+                option.textContent = `${monthName} ${y}`;
+                select.appendChild(option);
+            });
+        }
+
+        // Show history for selected month
+        document.getElementById('historyBtn').onclick = function() {
+            let records = JSON.parse(localStorage.getItem('hoursRecords') || "[]");
+            let selectedMonth = document.getElementById('historyMonth').value;
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedToday = `${yyyy}-${mm}-${dd}`;
+            let pastRecords = records.filter(r => r.date && r.date.startsWith(selectedMonth) && r.date !== formattedToday);
+            let tbody = document.getElementById('historyTable').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = "";
+            let total = 0;
+            pastRecords.forEach(record => {
+                let row = tbody.insertRow();
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                cell1.textContent = record.date;
+                cell2.textContent = record.hours;
+                cell3.innerHTML = record.proof ? `<img src="${record.proof}" class="img-thumb" style="width:40px;height:40px;cursor:pointer;" onclick="zoomImg('${record.proof.replace(/'/g,"\\'")}')">` : '';
+                total += Number(record.hours);
+            });
+            document.getElementById('historyTotal').textContent = total;
+
+            // Show current day's hours and proof in the preview
+            let current = records.find(r => r.date === formattedToday && r.date.startsWith(selectedMonth));
+            document.getElementById('currentHours').textContent = current ? current.hours : '0';
+            document.getElementById('currentProof').innerHTML = current && current.proof
+                ? `<img src="${current.proof}" class="img-thumb" style="width:40px;height:40px;cursor:pointer;" onclick="zoomImg('${current.proof.replace(/'/g,"\\'")}')">`
+                : '';
+
+            document.getElementById('historyModal').style.display = 'flex';
+        };
+
+        function closeHistory() {
+            document.getElementById('historyModal').style.display = 'none';
+            // Also close zoom modal if open
+            document.querySelector('#historyModal #imgZoomModal').style.display = 'none';
+        }
+
+        // Logo zoom logic
+        document.getElementById('mainLogo').onclick = function() {
+            var modal = document.getElementById('logoZoomModal');
+            modal.style.display = 'flex';
+            modal.onclick = function() { modal.style.display = 'none'; };
+        };
+
+        // Download PDF logic
+        document.getElementById('downloadBtn').onclick = function() {
+            let records = JSON.parse(localStorage.getItem('hoursRecords') || "[]");
+            let selectedMonth = document.getElementById('historyMonth').value;
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const formattedToday = `${yyyy}-${mm}-${dd}`;
+            let monthRecords = records.filter(r => r.date && r.date.startsWith(selectedMonth));
+            let total = 0;
+            let rows = '';
+            monthRecords.forEach(record => {
+                rows += `${record.date}    ${record.hours}    ${record.proof ? '[Photo Attached]' : ''}\n`;
+                total += Number(record.hours);
+            });
+
+            // Operator info
+            let opNum = localStorage.getItem('operatorNumber') || '';
+            let opName = localStorage.getItem('operatorName') || '';
+            let monthName = new Date(selectedMonth + '-01').toLocaleString('default', { month: 'long', year: 'numeric' });
+
+            // PDF content
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(18);
+            doc.text('MINING DIVISION', 105, 18, { align: 'center' });
+            doc.setFontSize(13);
+            doc.text('Rental Section', 105, 27, { align: 'center' });
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Operator Number: ${opNum}`, 15, 40);
+            doc.text(`Operator Name: ${opName}`, 15, 48);
+            doc.text(`Statement Month: ${monthName}`, 15, 56);
+            doc.line(15, 60, 195, 60);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Date', 20, 68);
+            doc.text('Hours', 60, 68);
+            doc.text('Proof', 100, 68);
+            doc.setFont('helvetica', 'normal');
+            let y = 76;
+            monthRecords.forEach(record => {
+                doc.text(record.date, 20, y);
+                doc.text(String(record.hours), 60, y);
+                doc.text(record.proof ? 'Yes' : 'No', 100, y);
+                y += 8;
+                if (y > 270) {
+                    doc.addPage();
+                    y = 20;
+                }
+            });
+            doc.setFont('helvetica', 'bold');
+            doc.text('Total', 20, y + 6);
+            doc.text(String(total), 60, y + 6);
+
+            // Nice extra content
+            doc.setFont('helvetica', 'italic');
+            doc.setFontSize(10);
+            doc.text('Thank you for your dedication and hard work!', 105, y + 20, { align: 'center' });
+            doc.text('For any queries, contact the Mining Division Rental Section Office.', 105, y + 28, { align: 'center' });
+
+            doc.save(`MiningDivision_${opNum}_${selectedMonth}.pdf`);
+        };
+
+        // PAY BUTTON LOGIC
+        function updatePayBtnColor() {
+            const today = new Date();
+            const day = today.getDate();
+            const payBtn = document.getElementById('payBtn');
+            if (day < 25) {
+                payBtn.classList.remove('green');
+                payBtn.classList.add('red');
+            } else {
+                payBtn.classList.remove('red');
+                payBtn.classList.add('green');
+            }
+        }
+        updatePayBtnColor();
+
+        document.getElementById('payBtn').onclick = function() {
+            // Get selected month or current month if not selected
+            let selectedMonth = document.getElementById('historyMonth').value;
+            if (!selectedMonth) {
+                const today = new Date();
+                selectedMonth = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0');
+            }
+            let records = JSON.parse(localStorage.getItem('hoursRecords') || "[]");
+            let monthRecords = records.filter(r => r.date && r.date.startsWith(selectedMonth));
+            let totalHours = monthRecords.reduce((sum, r) => sum + Number(r.hours), 0);
+            let gross = totalHours * 100;
+            let tax = Math.round(gross * 0.15);
+            let net = gross - tax;
+
+            // Operator info
+            let opNum = localStorage.getItem('operatorNumber') || '';
+            let opName = localStorage.getItem('operatorName') || '';
+            let monthName = new Date(selectedMonth + '-01').toLocaleString('default', { month: 'long', year: 'numeric' });
+
+            // Fill summary
+            document.getElementById('paySummary').innerHTML = `
+                <b>Operator Number:</b> ${opNum}<br>
+                <b>Operator Name:</b> ${opName}<br>
+                <b>Month:</b> ${monthName}<br>
+                <b>Total Hours:</b> ${totalHours}<br>
+                <b>Hourly Rate:</b> 100 Rands<br>
+                <b>Gross Amount:</b> R${gross}<br>
+                <b>Tax Deduction (15%):</b> R${tax}<br>
+                <b><span style="color:#43a047;">Net Pay:</span></b> <b style="color:#43a047;">R${net}</b>
+            `;
+
+            // Hide pay message initially
+            document.getElementById('payMessage').style.display = 'none';
+            document.getElementById('payMessage').textContent = "";
+
+            // Set pay button color
+            const today = new Date();
+            const day = today.getDate();
+            const payActionBtn = document.getElementById('payActionBtn');
+            if (day < 25) {
+                payActionBtn.classList.remove('green');
+                payActionBtn.classList.add('red');
+            } else {
+                payActionBtn.classList.remove('red');
+                payActionBtn.classList.add('green');
+            }
+            document.getElementById('payModal').style.display = 'flex';
+        };
+
+        document.getElementById('payActionBtn').onclick = function() {
+            const today = new Date();
+            const day = today.getDate();
+            const payMessage = document.getElementById('payMessage');
+            if (day < 25) {
+                payMessage.textContent = "YOU CAN ONLY ACTIVATE PAYMENTS AFTER 25TH";
+                payMessage.classList.remove('green');
+                payMessage.classList.add('red');
+            } else {
+                payMessage.textContent = "PAYMENT IS BEEN PROCESSED AND TO BE EXPECTED MONTH END";
+                payMessage.classList.remove('red');
+                payMessage.classList.add('green');
+            }
+            payMessage.style.display = 'block';
+        };
+
+        function closePayModal() {
+            document.getElementById('payModal').style.display = 'none';
+        }
+
+        // --- Check In Button Logic ---
+        let checkedIn = false;
+        let checkInLat = -26.2041; // Example: Johannesburg
+        let checkInLng = 28.0473;
+        let checkInRadius = 200; // meters
+        let checkInTime = null;
+        let knockoffTimeout = null;
+
+        document.getElementById('checkInBtn').onclick = function() {
+            if (!checkedIn) {
+                // Open preview modal
+                document.getElementById('checkInModal').style.display = 'flex';
+                document.getElementById('checkInStatus').textContent = '';
+                document.getElementById('doCheckInBtn').style.background = '#43a047'; // green for ready to check in
+                document.getElementById('doCheckInBtn').disabled = false;
+                loadMap();
+            } else {
+                // Only allow knockoff after 10 hours
+                if (checkInTime && (Date.now() - checkInTime >= 10 * 60 * 60 * 1000)) {
+                    checkedIn = false;
+                    document.getElementById('checkInText').textContent = "Check In";
+                    document.getElementById('checkInBtn').classList.remove('knockoff');
+                    document.getElementById('checkInBtn').style.background = '#e53935';
+                    if (knockoffTimeout) clearTimeout(knockoffTimeout);
+                }
+            }
+        };
+
+        document.getElementById('doCheckInBtn').onclick = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    let lat = position.coords.latitude;
+                    let lng = position.coords.longitude;
+                    let dist = getDistanceFromLatLonInM(lat, lng, checkInLat, checkInLng);
+                    if (dist <= checkInRadius) {
+                        document.getElementById('doCheckInBtn').style.background = '#43a047'; // green after check in
+                        document.getElementById('checkInStatus').textContent = "YOU JUST CHECKED IN";
+                        checkedIn = true;
+                        checkInTime = Date.now();
+                        document.getElementById('checkInText').textContent = "Knockoff";
+                        document.getElementById('checkInBtn').classList.add('knockoff');
+                        document.getElementById('checkInBtn').style.background = '#43a047';
+
+                        // Show "YOU JUST CHECKED IN" for 0.3 minutes (18 seconds), then show "Knockoff"
+                        if (knockoffTimeout) clearTimeout(knockoffTimeout);
+                        knockoffTimeout = setTimeout(function() {
+                            document.getElementById('checkInStatus').textContent = "Knockoff";
+                        }, 18000);
+                    } else {
+                        document.getElementById('checkInStatus').textContent = "You are not within the check-in area.";
+                    }
+                }, function() {
+                    document.getElementById('checkInStatus').textContent = "Unable to get your location.";
+                });
+            } else {
+                document.getElementById('checkInStatus').textContent = "Geolocation not supported.";
+            }
+        };
+
+        function closeCheckInModal() {
+            document.getElementById('checkInModal').style.display = 'none';
+        }
+
+        // Haversine formula for distance in meters
+        function getDistanceFromLatLonInM(lat1,lon1,lat2,lon2) {
+            var R = 6371000; // Radius of the earth in m
+            var dLat = (lat2-lat1) * Math.PI/180;
+            var dLon = (lon2-lon1) * Math.PI/180;
+            var a =
+                0.5 - Math.cos(dLat)/2 +
+                Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
+                (1 - Math.cos(dLon))/2;
+            return R * 2 * Math.asin(Math.sqrt(a));
+        }
+
+        // Google Maps loader
+        function loadMap() {
+            if (window.google && window.google.maps) {
+                renderMap();
+            } else {
+                let script = document.getElementById('gmapScript');
+                if (!script) {
+                    script = document.createElement('script');
+                    script.id = 'gmapScript';
+                    script.src = "https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=renderMap";
+                    script.async = true;
+                    document.body.appendChild(script);
+                } else {
+                    renderMap();
+                }
+            }
+        }
+
+        window.renderMap = function() {
+            let map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: checkInLat, lng: checkInLng},
+                zoom: 16
+            });
+            // Pin location
+            new google.maps.Marker({
+                position: {lat: checkInLat, lng: checkInLng},
+                map: map,
+                title: "Check-In Location"
+            });
+            // Draw radius
+            new google.maps.Circle({
+                strokeColor: "#e53935",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#e53935",
+                fillOpacity: 0.15,
+                map: map,
+                center: {lat: checkInLat, lng: checkInLng},
+                radius: checkInRadius
+            });
+            // Try to show user's location
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    let userMarker = new google.maps.Marker({
+                        position: {lat: position.coords.latitude, lng: position.coords.longitude},
+                        map: map,
+                        icon: {
+                            path: google.maps.SymbolPath.CIRCLE,
+                            scale: 7,
+                            fillColor: "#4285F4",
+                            fillOpacity: 1,
+                            strokeWeight: 2,
+                            strokeColor: "#fff"
+                        },
+                        title: "Your Location"
+                    });
+                    map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
+                });
+            }
+        };
+    </script>
+</body>
+</html>
