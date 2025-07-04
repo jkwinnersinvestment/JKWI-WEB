@@ -516,7 +516,11 @@
                 </div>
                 <div id="sa-id-status" style="display:none; color:#e53935; font-size:0.95em; margin-top:2px;"></div>
             </div>
-            <input type="text" id="reg-address" placeholder="Physical Address" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <div style="width:100%;">
+                <input type="text" id="reg-address" placeholder="Physical Address" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+                <button type="button" id="addressMapBtn" style="display:none; margin-top:4px; padding:6px 16px; border-radius:16px; background:linear-gradient(90deg,#43cea2 0%,#185a9d 100%); color:#fff; border:none; font-size:0.98em;">Use Google Map Address</button>
+                <div id="addressSuggestions" style="display:none; background:#f4f8fb; border:1px solid #b6d6f6; border-radius:8px; margin-top:4px; max-height:120px; overflow-y:auto; font-size:0.98em; z-index:10002; position:relative;"></div>
+            </div>
             <input type="text" id="reg-city" placeholder="City/Town" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
             <input type="text" id="reg-country" placeholder="Country" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
             <input type="text" id="reg-occupation" placeholder="Occupation" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
@@ -713,6 +717,87 @@ document.addEventListener('DOMContentLoaded', function() {
         return sum % 10 === 0;
     }
 });
+
+
+// Google Places API autocomplete for address
+let autocompleteService;
+let addressInput = document.getElementById('reg-address');
+let suggestionsBox = document.getElementById('addressSuggestions');
+let addressMapBtn = document.getElementById('addressMapBtn');
+
+// Show Google Map Address button on focus
+addressInput.addEventListener('focus', function() {
+    addressMapBtn.style.display = 'inline-block';
+});
+
+// Hide button on blur (with delay to allow click)
+addressInput.addEventListener('blur', function() {
+    setTimeout(() => {
+        addressMapBtn.style.display = 'none';
+        suggestionsBox.style.display = 'none';
+    }, 200);
+});
+
+// Show suggestions as user types
+addressInput.addEventListener('input', function() {
+    let val = addressInput.value.trim();
+    if (!val) {
+        suggestionsBox.style.display = 'none';
+        return;
+    }
+    if (!window.google || !window.google.maps || !window.google.maps.places) {
+        loadGooglePlacesApi();
+        return;
+    }
+    if (!autocompleteService) {
+        autocompleteService = new google.maps.places.AutocompleteService();
+    }
+    autocompleteService.getPlacePredictions({ input: val }, function(predictions, status) {
+        if (status !== google.maps.places.PlacesServiceStatus.OK || !predictions) {
+            suggestionsBox.style.display = 'none';
+            return;
+        }
+        suggestionsBox.innerHTML = '';
+        predictions.forEach(function(pred) {
+            let div = document.createElement('div');
+            div.textContent = pred.description;
+            div.style.padding = '6px 10px';
+            div.style.cursor = 'pointer';
+            div.onmousedown = function() {
+                addressInput.value = pred.description;
+                suggestionsBox.style.display = 'none';
+            };
+            suggestionsBox.appendChild(div);
+        });
+        suggestionsBox.style.display = 'block';
+    });
+});
+
+// Show suggestions box on focus if input has value
+addressInput.addEventListener('focus', function() {
+    if (addressInput.value.trim()) {
+        addressInput.dispatchEvent(new Event('input'));
+    }
+});
+
+// Google Map Address button click (optional: open Google Maps)
+addressMapBtn.onclick = function() {
+    let val = addressInput.value.trim();
+    if (val) {
+        window.open('https://www.google.com/maps/search/' + encodeURIComponent(val), '_blank');
+    }
+};
+
+// Load Google Places API if not loaded
+function loadGooglePlacesApi() {
+    if (window.google && window.google.maps && window.google.maps.places) return;
+    if (document.getElementById('googlePlacesScript')) return;
+    let script = document.createElement('script');
+    script.id = 'googlePlacesScript';
+    script.src = "https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places";
+    script.async = true;
+    document.body.appendChild(script);
+}
 </script>
 </body>
 </html>
