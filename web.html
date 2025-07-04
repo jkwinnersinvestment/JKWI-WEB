@@ -502,10 +502,19 @@
                 </div>
             </div>
             <div style="width:100%;">
-                <input type="text" id="reg-id" placeholder="ID/Passport Number" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+                <input type="text" id="reg-id" placeholder="ID/Passport Number" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%; margin-bottom:2px;">
+                <div id="id-type-options" style="display:none; margin-bottom:4px;">
+                    <label style="font-size:0.95em; margin-right:10px;">
+                        <input type="checkbox" id="chk-sa-id" style="width:14px; height:14px; vertical-align:middle; margin-right:3px;"> South African ID
+                    </label>
+                    <label style="font-size:0.95em;">
+                        <input type="checkbox" id="chk-passport" style="width:14px; height:14px; vertical-align:middle; margin-right:3px;"> Passport
+                    </label>
+                </div>
                 <div id="msg-id" style="display:none; color:#2a5298; font-size:0.98em; margin-top:4px;">
                     Please enter your ID or Passport number exactly as it appears on your identity document.
                 </div>
+                <div id="sa-id-status" style="display:none; color:#e53935; font-size:0.95em; margin-top:2px;"></div>
             </div>
             <input type="text" id="reg-address" placeholder="Physical Address" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
             <input type="text" id="reg-city" placeholder="City/Town" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
@@ -591,7 +600,7 @@ function submitWizzard2() {
     setTimeout(closeWizzard2, 1200);
 }
 
-// Show/hide info messages on focus for Wizzard 2 fields
+// Show/hide info messages and checkboxes on focus for Wizzard 2 ID field
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('reg-fullname').addEventListener('focus', function() {
         document.getElementById('msg-fullname').style.display = 'block';
@@ -616,10 +625,93 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('reg-id').addEventListener('focus', function() {
         document.getElementById('msg-id').style.display = 'block';
+        idTypeOptions.style.display = 'block';
     });
     document.getElementById('reg-id').addEventListener('blur', function() {
-        document.getElementById('msg-id').style.display = 'none';
+        setTimeout(function() {
+            document.getElementById('msg-id').style.display = 'none';
+            idTypeOptions.style.display = 'none';
+            saIdStatus.style.display = 'none';
+        }, 200); // allow click on checkbox
     });
+
+    const regId = document.getElementById('reg-id');
+    const idTypeOptions = document.getElementById('id-type-options');
+    const chkSaId = document.getElementById('chk-sa-id');
+    const chkPassport = document.getElementById('chk-passport');
+    const saIdStatus = document.getElementById('sa-id-status');
+
+    // Only one checkbox can be checked at a time
+    chkSaId.addEventListener('change', function() {
+        if (chkSaId.checked) {
+            chkPassport.checked = false;
+            saIdStatus.style.display = 'block';
+            validateSouthAfricanID(regId.value);
+        } else {
+            saIdStatus.style.display = 'none';
+        }
+    });
+    chkPassport.addEventListener('change', function() {
+        if (chkPassport.checked) {
+            chkSaId.checked = false;
+            saIdStatus.style.display = 'none';
+        }
+    });
+
+    // Live validation for South African ID
+    regId.addEventListener('input', function() {
+        if (chkSaId.checked) {
+            saIdStatus.style.display = 'block';
+            validateSouthAfricanID(regId.value);
+        } else {
+            saIdStatus.style.display = 'none';
+        }
+    });
+
+    function validateSouthAfricanID(id) {
+        // South African ID: 13 digits, Luhn check, valid date
+        if (!/^\d{13}$/.test(id)) {
+            saIdStatus.style.color = "#e53935";
+            saIdStatus.textContent = "ID number must be exactly 13 digits.";
+            return false;
+        }
+        // Date check (YYMMDD)
+        var yy = parseInt(id.substr(0,2),10);
+        var mm = parseInt(id.substr(2,2),10);
+        var dd = parseInt(id.substr(4,2),10);
+        var currentYear = new Date().getFullYear() % 100;
+        var century = (yy <= currentYear ? 2000 : 1900);
+        var birthDate = new Date(century + yy, mm - 1, dd);
+        if (birthDate.getFullYear() !== century + yy || birthDate.getMonth() !== mm - 1 || birthDate.getDate() !== dd) {
+            saIdStatus.style.color = "#e53935";
+            saIdStatus.textContent = "Invalid date in ID number.";
+            return false;
+        }
+        // Luhn check
+        if (!luhnCheck(id)) {
+            saIdStatus.style.color = "#e53935";
+            saIdStatus.textContent = "Invalid South African ID number (checksum failed).";
+            return false;
+        }
+        saIdStatus.style.color = "#43a047";
+        saIdStatus.textContent = "South African ID number is valid.";
+        return true;
+    }
+
+    function luhnCheck(value) {
+        let sum = 0;
+        let alt = false;
+        for (let i = value.length - 1; i >= 0; i--) {
+            let n = parseInt(value.charAt(i), 10);
+            if (alt) {
+                n *= 2;
+                if (n > 9) n -= 9;
+            }
+            sum += n;
+            alt = !alt;
+        }
+        return sum % 10 === 0;
+    }
 });
 </script>
 </body>
