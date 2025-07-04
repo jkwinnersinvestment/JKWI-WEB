@@ -468,9 +468,32 @@
         <h2 style="color:#1e3c72; margin-top:0;">Login (Wizzard 1)</h2>
         <input type="text" id="wizzard1-username" placeholder="Username" style="margin-bottom:14px; padding:10px; width:90%; border-radius:8px; border:1px solid #b6d6f6; font-size:1em;">
         <input type="password" id="wizzard1-password" placeholder="Password" style="margin-bottom:18px; padding:10px; width:90%; border-radius:8px; border:1px solid #b6d6f6; font-size:1em;">
-        <button onclick="wizzard1Login()" style="padding:10px 32px; border-radius:24px; background:linear-gradient(90deg,#2a5298 0%,#1e3c72 100%); color:#fff; border:none; font-weight:bold; font-size:1.1em; margin-bottom:10px;">Login</button>
+        <button onclick="wizzard1Login()" style="padding:10px 32px; border-radius:24px; background:linear-gradient(90deg,#2a5298 0%,#1e3c72 100%); color:#fff; border:none; font-weight:bold; font-size:1.1em; margin-bottom:10px;">Sign In</button>
+        <button onclick="openWizzard2()" style="padding:10px 32px; border-radius:24px; background:linear-gradient(90deg,#43cea2 0%,#185a9d 100%); color:#fff; border:none; font-weight:bold; font-size:1.1em; margin-bottom:10px;">Register</button>
         <button onclick="closeWizzard1()" style="padding:8px 24px; border-radius:24px; background:#e53935; color:#fff; border:none; font-weight:bold;">Cancel</button>
         <div id="wizzard1-status" style="margin-top:12px; color:#e53935; font-size:1em;"></div>
+    </div>
+</div>
+
+<!-- Wizzard 2: Register Modal -->
+<div id="wizzard2-modal" style="display:none; position:fixed; z-index:10001; left:0; top:0; width:100vw; height:100vh; background:rgba(30,60,114,0.18); align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:18px; padding:32px 24px; box-shadow:0 4px 24px rgba(30,60,114,0.18); max-width:400px; width:95vw; text-align:left; margin:auto; position:relative; display:flex; flex-direction:column; align-items:center;">
+        <h2 style="color:#1e3c72; margin-top:0; text-align:center;">Register (Wizzard 2)</h2>
+        <form id="wizzard2-form" style="width:100%; display:flex; flex-direction:column; gap:12px;">
+            <input type="text" id="reg-fullname" placeholder="Full Name" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <input type="email" id="reg-email" placeholder="Email Address" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <input type="tel" id="reg-phone" placeholder="Phone Number" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <input type="text" id="reg-id" placeholder="ID/Passport Number" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <input type="text" id="reg-address" placeholder="Physical Address" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <input type="text" id="reg-city" placeholder="City/Town" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <input type="text" id="reg-country" placeholder="Country" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <input type="text" id="reg-occupation" placeholder="Occupation" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <input type="password" id="reg-password" placeholder="Create Password" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <input type="password" id="reg-password2" placeholder="Confirm Password" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <button type="button" onclick="submitWizzard2()" style="padding:10px 32px; border-radius:24px; background:linear-gradient(90deg,#2a5298 0%,#1e3c72 100%); color:#fff; border:none; font-weight:bold; font-size:1.1em;">Register</button>
+            <button type="button" onclick="closeWizzard2()" style="padding:8px 24px; border-radius:24px; background:#e53935; color:#fff; border:none; font-weight:bold;">Cancel</button>
+        </form>
+        <div id="wizzard2-status" style="margin-top:12px; color:#e53935; font-size:1em; text-align:center;"></div>
     </div>
 </div>
 
@@ -508,6 +531,41 @@ function wizzard1Login() {
     document.getElementById('wizzard1-status').style.color = "#43a047";
     document.getElementById('wizzard1-status').textContent = "Login successful (demo only).";
     setTimeout(closeWizzard1, 1200);
+}
+
+function openWizzard2() {
+    document.getElementById('wizzard1-modal').style.display = 'none';
+    document.getElementById('wizzard2-modal').style.display = 'flex';
+    document.getElementById('wizzard2-status').textContent = '';
+    document.getElementById('wizzard2-form').reset();
+}
+function closeWizzard2() {
+    document.getElementById('wizzard2-modal').style.display = 'none';
+    document.getElementById('wizzard2-status').textContent = '';
+}
+function submitWizzard2() {
+    // Simple validation
+    var fullname = document.getElementById('reg-fullname').value.trim();
+    var email = document.getElementById('reg-email').value.trim();
+    var phone = document.getElementById('reg-phone').value.trim();
+    var id = document.getElementById('reg-id').value.trim();
+    var address = document.getElementById('reg-address').value.trim();
+    var city = document.getElementById('reg-city').value.trim();
+    var country = document.getElementById('reg-country').value.trim();
+    var occupation = document.getElementById('reg-occupation').value.trim();
+    var pass1 = document.getElementById('reg-password').value;
+    var pass2 = document.getElementById('reg-password2').value;
+    if (!fullname || !email || !phone || !id || !address || !city || !country || !occupation || !pass1 || !pass2) {
+        document.getElementById('wizzard2-status').textContent = "Please fill in all fields.";
+        return;
+    }
+    if (pass1 !== pass2) {
+        document.getElementById('wizzard2-status').textContent = "Passwords do not match.";
+        return;
+    }
+    document.getElementById('wizzard2-status').style.color = "#43a047";
+    document.getElementById('wizzard2-status').textContent = "Registration successful (demo only).";
+    setTimeout(closeWizzard2, 1200);
 }
 </script>
 </body>
