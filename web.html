@@ -480,10 +480,33 @@
     <div style="background:#fff; border-radius:18px; padding:32px 24px; box-shadow:0 4px 24px rgba(30,60,114,0.18); max-width:400px; width:95vw; text-align:left; margin:auto; position:relative; display:flex; flex-direction:column; align-items:center;">
         <h2 style="color:#1e3c72; margin-top:0; text-align:center;">Register (Wizzard 2)</h2>
         <form id="wizzard2-form" style="width:100%; display:flex; flex-direction:column; gap:12px;">
-            <input type="text" id="reg-fullname" placeholder="Full Name" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
-            <input type="email" id="reg-email" placeholder="Email Address" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
-            <input type="tel" id="reg-phone" placeholder="Phone Number" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
-            <input type="text" id="reg-id" placeholder="ID/Passport Number" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <div style="width:100%;">
+                <input type="text" id="reg-fullname" placeholder="Full Name" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+                <div id="msg-fullname" style="display:none; color:#2a5298; font-size:0.98em; margin-top:4px;">
+                    Please enter your name exactly as it appears on your identity document.
+                </div>
+            </div>
+            <div style="width:100%;">
+                <input type="text" id="reg-surname" placeholder="Surname" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+            </div>
+            <div style="width:100%;">
+                <input type="email" id="reg-email" placeholder="Email Address" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+                <div id="msg-email" style="display:none; color:#2a5298; font-size:0.98em; margin-top:4px;">
+                    Please enter an email address that will be verified and used for all communication with the Winners Family (everyone doing business with JK WINNERS INVESTMENT). <b>It is very important to provide the correct email address for verification processes.</b>
+                </div>
+            </div>
+            <div style="width:100%;">
+                <input type="tel" id="reg-phone" placeholder="Phone Number" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+                <div id="msg-phone" style="display:none; color:#2a5298; font-size:0.98em; margin-top:4px;">
+                    Please enter a valid phone number. This number will be used for important notifications and verification.
+                </div>
+            </div>
+            <div style="width:100%;">
+                <input type="text" id="reg-id" placeholder="ID/Passport Number" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+                <div id="msg-id" style="display:none; color:#2a5298; font-size:0.98em; margin-top:4px;">
+                    Please enter your ID or Passport number exactly as it appears on your identity document.
+                </div>
+            </div>
             <input type="text" id="reg-address" placeholder="Physical Address" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
             <input type="text" id="reg-city" placeholder="City/Town" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
             <input type="text" id="reg-country" placeholder="Country" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
@@ -567,6 +590,37 @@ function submitWizzard2() {
     document.getElementById('wizzard2-status').textContent = "Registration successful (demo only).";
     setTimeout(closeWizzard2, 1200);
 }
+
+// Show/hide info messages on focus for Wizzard 2 fields
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('reg-fullname').addEventListener('focus', function() {
+        document.getElementById('msg-fullname').style.display = 'block';
+    });
+    document.getElementById('reg-fullname').addEventListener('blur', function() {
+        document.getElementById('msg-fullname').style.display = 'none';
+    });
+
+    document.getElementById('reg-email').addEventListener('focus', function() {
+        document.getElementById('msg-email').style.display = 'block';
+    });
+    document.getElementById('reg-email').addEventListener('blur', function() {
+        document.getElementById('msg-email').style.display = 'none';
+    });
+
+    document.getElementById('reg-phone').addEventListener('focus', function() {
+        document.getElementById('msg-phone').style.display = 'block';
+    });
+    document.getElementById('reg-phone').addEventListener('blur', function() {
+        document.getElementById('msg-phone').style.display = 'none';
+    });
+
+    document.getElementById('reg-id').addEventListener('focus', function() {
+        document.getElementById('msg-id').style.display = 'block';
+    });
+    document.getElementById('reg-id').addEventListener('blur', function() {
+        document.getElementById('msg-id').style.display = 'none';
+    });
+});
 </script>
 </body>
 </html>
