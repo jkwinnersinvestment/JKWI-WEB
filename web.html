@@ -518,7 +518,6 @@
             </div>
             <div style="width:100%;">
                 <input type="text" id="reg-address" placeholder="Physical Address" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
-                <button type="button" id="addressMapBtn" style="display:none; margin-top:4px; padding:6px 16px; border-radius:16px; background:linear-gradient(90deg,#43cea2 0%,#185a9d 100%); color:#fff; border:none; font-size:0.98em;">Use Google Map Address</button>
                 <div id="addressSuggestions" style="display:none; background:#f4f8fb; border:1px solid #b6d6f6; border-radius:8px; margin-top:4px; max-height:120px; overflow-y:auto; font-size:0.98em; z-index:10002; position:relative;"></div>
             </div>
             <input type="text" id="reg-city" placeholder="City/Town" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
@@ -723,20 +722,6 @@ document.addEventListener('DOMContentLoaded', function() {
 let autocompleteService;
 let addressInput = document.getElementById('reg-address');
 let suggestionsBox = document.getElementById('addressSuggestions');
-let addressMapBtn = document.getElementById('addressMapBtn');
-
-// Show Google Map Address button on focus
-addressInput.addEventListener('focus', function() {
-    addressMapBtn.style.display = 'inline-block';
-});
-
-// Hide button on blur (with delay to allow click)
-addressInput.addEventListener('blur', function() {
-    setTimeout(() => {
-        addressMapBtn.style.display = 'none';
-        suggestionsBox.style.display = 'none';
-    }, 200);
-});
 
 // Show suggestions as user types
 addressInput.addEventListener('input', function() {
@@ -773,20 +758,19 @@ addressInput.addEventListener('input', function() {
     });
 });
 
+// Hide suggestions on blur (with delay to allow click)
+addressInput.addEventListener('blur', function() {
+    setTimeout(() => {
+        suggestionsBox.style.display = 'none';
+    }, 200);
+});
+
 // Show suggestions box on focus if input has value
 addressInput.addEventListener('focus', function() {
     if (addressInput.value.trim()) {
         addressInput.dispatchEvent(new Event('input'));
     }
 });
-
-// Google Map Address button click (optional: open Google Maps)
-addressMapBtn.onclick = function() {
-    let val = addressInput.value.trim();
-    if (val) {
-        window.open('https://www.google.com/maps/search/' + encodeURIComponent(val), '_blank');
-    }
-};
 
 // Load Google Places API if not loaded
 function loadGooglePlacesApi() {
