@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JK WINNERS INVESTMENT</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #e3f0fc 0%, #b6d6f6 100%);
+        }
+        header {
+            background: linear-gradient(90deg, #4f8edc 0%, #7eb6f7 100%);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(79,142,220,0.10);
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 70px;
+        }
+        .navbar .logo {
+            font-size: 2em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 1px 2px 8px rgba(79,142,220,0.18);
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 10px;
+        }
+        .navbar li {
+            position: relative;
+        }
+        .navbar li a, .dropbtn {
+            color: #fff;
+            background: transparent;
+            padding: 12px 28px;
+            display: block;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            border-radius: 30px;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        .navbar li a:hover, .dropbtn:hover {
+            background: #fff;
+            color: #4f8edc;
+            box-shadow: 0 2px 8px rgba(79,142,220,0.12);
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #fff;
+            min-width: 180px;
+            box-shadow: 0 8px 24px rgba(79,142,220,0.12);
+            border-radius: 10px;
+            top: 48px;
+            left: 0;
+            z-index: 10;
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            background: #fff;
+            color: #4f8edc;
+            padding: 14px 24px;
+            text-decoration: none;
+            display: block;
+            font-size: 1em;
+            transition: background 0.2s, color 0.2s;
+        }
+        .dropdown-content a:hover {
+            background: #e3f0fc;
+            color: #1565c0;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .cart-icon {
+            position: relative;
+        }
+        .cart-icon a {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 0 18px;
+        }
+        .cart-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: #4f8edc;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .cart-icon span {
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            background: #1565c0;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border-radius: 50%;
+            padding: 1px 5px;
+            box-shadow: 0 2px 8px rgba(79,142,220,0.18);
+            border: 2px solid #fff;
+        }
+        .header-icons {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 18px !important;
+            margin: 0 8px 0 0 !important;
+        }
+        .icon-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            height: auto;
+            border-radius: 0;
+            padding: 0;
+            background: none;
+            transition: none;
+        }
+        .icon-link svg {
+            width: 20px;
+            height: 20px;
+            pointer-events: auto;
+            display: block;
+        }
+        .icon-link:hover {
+            background: none;
+        }
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                height: auto;
+                padding: 20px;
+            }
+            .navbar ul {
+                flex-direction: column;
+                width: 100%;
+                gap: 0;
+            }
+            .navbar li a, .dropbtn {
+                width: 100%;
+                text-align: left;
+                border-radius: 10px;
+            }
+            .dropdown-content {
+                left: 0;
+                min-width: 100%;
+            }
+            .header-icons {
+                gap: 10px !important;
+            }
+            .icon-link {
+                width: 18px;
+                height: 18px;
+            }
+            .icon-link svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        #addressSuggestions {
+            display: none;
+            background: #f4f8fb;
+            border: 1px solid #b6d6f6;
+            border-radius: 8px;
+            margin-top: 4px;
+            max-height: 120px;
+            overflow-y: auto;
+            font-size: 0.98em;
+            z-index: 10002;
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 100%;
+            box-shadow: 0 4px 16px rgba(30,60,114,0.10);
+        }
+        .address-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">JK WINNERS INVESTMENT</div>
+            <ul>
+                <li class="dropdown">
+                    <button class="dropbtn">JKWI</button>
+                    <div class="dropdown-content">
+                        <a href="#" style="color: #1565c0;">Work With Us</a>
+                        <a href="#" style="color: #1565c0;">Contact Us</a>
+                        <a href="#" style="color: #1565c0;">About Us</a>
+                        <a href="#" style="color: #1565c0;">Market</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <button class="dropbtn">Divisions</button>
+                    <div class="dropdown-content">
+                        <a href="#" style="color: #1565c0;">MINING</a>
+                        <a href="#" style="color: rgb(102,51,0);">INFRASTRUCTURE</a>
+                        <a href="#" style="color: #388e3c;">FARMING</a>
+                        <a href="#" style="color: #ef6c00;">SERVICE</a>
+                        <a href="#" style="color: #800080;">FINANCE</a>
+                        <a href="#" style="color: #111;">LEGAL</a>
+                        <a href="#" style="color: #ffd600;">MEDIA</a>
+                        <a href="#" style="color: #d84315;">SOCIAL</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <button class="dropbtn">Online Store</button>
+                    <div class="dropdown-content">
+                        <a href="#" style="color: #1565c0;">MINING</a>
+                        <a href="#" style="color: rgb(102,51,0);">INFRASTRUCTURE</a>
+                        <a href="#" style="color: #388e3c;">FARMING</a>
+                        <a href="#" style="color: #ef6c00;">SERVICE</a>
+                        <a href="#" style="color: #800080;">FINANCE</a>
+                        <a href="#" style="color: #111;">LEGAL</a>
+                        <a href="#" style="color: #ffd600;">MEDIA</a>
+                        <a href="#" style="color: #d84315;">SOCIAL</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <button class="dropbtn">Rentals</button>
+                    <div class="dropdown-content">
+                        <a href="#" style="color: #1565c0;">MINING</a>
+                        <a href="#" style="color: rgb(102,51,0);">INFRASTRUCTURE</a>
+                        <a href="#" style="color: #388e3c;">FARMING</a>
+                        <a href="#" style="color: #ef6c00;">SERVICE</a>
+                        <a href="#" style="color: #800080;">FINANCE</a>
+                        <a href="#" style="color: #111;">LEGAL</a>
+                        <a href="#" style="color: #ffd600;">MEDIA</a>
+                        <a href="#" style="color: #d84315;">SOCIAL</a>
+                    </div>
+                </li>
+                <li class="header-icons" style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 18px; margin: 0 8px 0 0;">
+                    <a href="tel:0788885324" title="Call us" class="icon-link">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.72 19.72 0 0 1 3 5.18 2 2 0 0 1 5 3h4.09a2 2 0 0 1 2 1.72c.13 1.13.37 2.23.72 3.28a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.29 6.29l1.27-1.27a2 2 0 0 1 2.11-.45c1.05.35 2.15.59 3.28.72A2 2 0 0 1 22 16.92z"></path></svg>
+                    </a>
+                    <a href="mailto:info@jkwinnersinvestment.co.za" title="Email us" class="icon-link">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+                    </a>
+                    <a href="#" title="Login" class="icon-link">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20v-1a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v1"/></svg>
+                    </a>
+                    <a href="#" title="Shopping Cart" class="icon-
+                    
+                    link" style="position: relative;">
+                        <svg viewBox="0 0 24 24" width="22" height="22">
+                            <circle cx="9" cy="21" r="1.5"/>
+                            <circle cx="19" cy="21" r="1.5"/>
+                            <path d="M2.5 4h2l2.5 13h11l2-8H6.5"/>
+                        </svg>
+                        <span style="position: absolute; top: -4px; right: -6px; background: #1565c0; color: #fff; font-size: 0.7rem; font-weight: bold; border-radius: 50%; padding: 1px 5px; box-shadow: 0 2px 8px rgba(79,142,220,0.18); border: 2px solid #fff;">3</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main style="padding: 64px 0 0 0; text-align: center; min-height: 60vh; background: linear-gradient(120deg, #e3f0fc 0%, #b6d6f6 100%);">
+        <!-- SECTION 1: Logo, Heading, and Paragraph -->
+        <section id="section-1" style="max-width: 900px; margin: 0 auto; padding: 48px 24px;">
+            <img src="https://jkwinnersinvestment.github.io/JKWI-WEB/NEW%20LOGO%20PNG/main.png" alt="JK WINNERS INVESTMENT Logo" style="width: 15cm; height: 15cm; object-fit: contain; display: block; margin-left: auto; margin-right: auto; margin-bottom: 24px; border-radius: 18px; box-shadow: 0 8px 32px rgba(30,60,114,0.10);">
+            <h1 style="font-size: 2.8em; font-weight: bold; color: #1e3c72; margin-bottom: 16px; letter-spacing: 2px;">JKWI</h1>
+            <p style="font-size: 16px; font-family: 'Segoe UI', Arial, sans-serif; color: #2a5298; max-width: 600px; margin: 0 auto 32px auto; line-height: 1.6;">
+                Explore the wide range of services tailored to meet your needs in the areas of mining, infrastructure, farming, services, finance, legal, media, and social development. We are here to help you achieve your business goals and drive growth in your industry.
+            </p>
+        </section>
+        <hr style="border: none; border-top: 1px solid #e3f0fc; margin: 0 0 32px 0;">
+        <!-- SECTION 1 END -->
+
+        <!-- SECTION 2: Video Widget (loop, no controls, cropped to cover) -->
+        <section id="section-2" style="width: 100vw; height: 5cm; margin: 0 0 32px 0; padding: 0; display: flex; align-items: center; justify-content: center; background: #e3f0fc; overflow: hidden;">
+            <video width="100%" height="100%" autoplay muted loop playsinline style="width: 100vw; height: 5cm; object-fit: cover; border: none;">
+                <source src="https://jkwinnersinvestment.github.io/JKWI-WEB/videos/intro%203.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+        <hr style="border: none; border-top: 1px solid #e3f0fc; margin: 0 0 32px 0;">
+        <!-- SECTION 2 END -->
+
+        <!-- SECTION 3: Buttons -->
+        <section id="section-3" style="max-width: 900px; margin: 0 auto; padding: 48px 24px;">
+            <a href="#" style="display: inline-block; margin: 24px 12px 0 12px; padding: 18px 48px; font-size: 1.2em; font-weight: bold; color: #fff; background: linear-gradient(90deg, #2a5298 0%, #1e3c72 100%); border: none; border-radius: 32px; box-shadow: 0 4px 24px rgba(30,60,114,0.18); text-decoration: none; transition: background 0.3s, transform 0.2s, box-shadow 0.2s; letter-spacing: 1px;">Explore Divisions</a>
+            <a href="#" style="display: inline-block; margin: 24px 12px 0 12px; padding: 18px 48px; font-size: 1.2em; font-weight: bold; color: #fff; background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%); border: none; border-radius: 32px; box-shadow: 0 4px 24px rgba(30,60,114,0.18); text-decoration: none; transition: background 0.3s, transform 0.2s, box-shadow 0.2s; letter-spacing: 1px;">Shop Online</a>
+        </section>
+        <hr style="border: none; border-top: 1px solid #e3f0fc; margin: 0 0 32px 0;">
+        <!-- SECTION 3 END -->
+
+        <!-- SECTION 4: Daily Market Prices -->
+        <section id="section-4" style="max-width: 900px; margin: 48px auto; padding: 48px 24px; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px rgba(30,60,114,0.08);">
+            <h2 style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 2.2em; color: #1e3c72; margin-bottom: 18px; letter-spacing: 1px;">DAILY MARKET PRICES</h2>
+            <p style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 1.1em; color: #2a5298; line-height: 1.7; margin-bottom: 12px;">
+                Welcome! You've entered a section of our website dedicated to providing you with the latest market prices for various commodities. Here, you'll find up-to-date information on crucial resources like chrome and other minerals, as well as daily reports on farming products and much more. Stay informed and make smarter decisions with our comprehensive pricing insights.
+            </p>
+            <a href="https://jkwinnersinvestment.github.io/JKWI-WEB/index1.html" style="display: inline-block; margin-top: 18px; padding: 18px 48px; font-size: 1.2em; font-weight: bold; color: #fff; background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%); border: none; border-radius: 32px; box-shadow: 0 4px 24px rgba(30,60,114,0.18); text-decoration: none; transition: background 0.3s, transform 0.2s, box-shadow 0.2s; letter-spacing: 1px;">Market Price</a>
+        </section>
+        <hr style="border: none; border-top: 1px solid #e3f0fc; margin: 0 0 32px 0;">
+        <!-- SECTION 4 END -->
+
+        <!-- SECTION 5: Background Image & Overlay -->
+        <section id="section-5" style="width: 100vw; min-height: 400px; margin: 48px 0 0 0; padding: 0; position: relative; background: url('https://jkwinnersinvestment.github.io/JKWI-WEB/JKWI%20gallery/homepage/3.png') center center / cover no-repeat; display: flex; align-items: center; justify-content: center; border-radius: 0;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45); z-index: 1;"></div>
+            <div style="background: transparent; border-radius: 18px; padding: 40px 32px; max-width: 600px; margin: 48px auto; text-align: center; box-shadow: 0 4px 24px rgba(30,60,114,0.10); position: relative; z-index: 2;">
+                <h2 style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 2.2em; color: #fff; margin-bottom: 18px; letter-spacing: 1px;">JKWI</h2>
+                <p style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 1.1em; color: #fff; line-height: 1.7; margin-bottom: 12px;">
+                    Work with us<br>
+                    Browse current opportunity openings across our divisions<br>
+                    Vendor Applications Forms and other partnership methods
+                </p>
+                <a href="#" style="display: inline-block; margin-top: 18px; padding: 14px 38px; font-size: 1.1em; font-weight: bold; color: #fff; background: linear-gradient(90deg, #2a5298 0%, #1e3c72 100%); border: none; border-radius: 28px; box-shadow: 0 2px 12px rgba(30,60,114,0.12); text-decoration: none; transition: background 0.3s, transform 0.2s, box-shadow 0.2s; letter-spacing: 1px;">WORK WITH US</a>
+            </div>
+        </section>
+        <hr style="border: none; border-top: 1px solid #e3f0fc; margin: 0 0 32px 0;">
+        <!-- SECTION 5 END -->
+
+        <!-- SECTION 6: Slideshow -->
+        <section id="section-6" style="width: 100vw; min-height: 420px; margin: 48px 0 0 0; padding: 0; position: relative; overflow: hidden;">
+            <div id="slideshow-container" style="width: 100vw; height: 420px; position: relative;">
+                <img class="slide-img" src="https://jkwinnersinvestment.github.io/JKWI-WEB/SLIDE%20DIVISIONS1/Picture1.jpg" style="width: 100vw; height: 420px; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 1; transition: opacity 1s; z-index: 2;">
+                <img class="slide-img" src="https://jkwinnersinvestment.github.io/JKWI-WEB/SLIDE%20DIVISIONS1/Picture2.jpg" style="width: 100vw; height: 420px; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1s; z-index: 1;">
+                <img class="slide-img" src="https://jkwinnersinvestment.github.io/JKWI-WEB/SLIDE%20DIVISIONS1/Picture3.jpg" style="width: 100vw; height: 420px; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1s; z-index: 1;">
+                <img class="slide-img" src="https://jkwinnersinvestment.github.io/JKWI-WEB/SLIDE%20DIVISIONS1/Picture4.jpg" style="width: 100vw; height: 420px; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1s; z-index: 1;">
+                <img class="slide-img" src="https://jkwinnersinvestment.github.io/JKWI-WEB/SLIDE%20DIVISIONS1/Picture5.jpg" style="width: 100vw; height: 420px; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1s; z-index: 1;">
+                <img class="slide-img" src="https://jkwinnersinvestment.github.io/JKWI-WEB/SLIDE%20DIVISIONS1/Picture6.jpg" style="width: 100vw; height: 420px; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1s; z-index: 1;">
+                <img class="slide-img" src="https://jkwinnersinvestment.github.io/JKWI-WEB/SLIDE%20DIVISIONS1/Picture7.jpg" style="width: 100vw; height: 420px; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1s; z-index: 1;">
+                <img class="slide-img" src="https://jkwinnersinvestment.github.io/JKWI-WEB/SLIDE%20DIVISIONS1/Picture8.jpg" style="width: 100vw; height: 420px; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1s; z-index: 1;">
+            </div>
+        </section>
+        <hr style="border: none; border-top: 1px solid #e3f0fc; margin: 0 0 32px 0;">
+        <!-- SECTION 6 END -->
+
+        <!-- SECTION 7: Newsletter (Now Video Widget) -->
+        <section id="section-7" style="width: 100vw; height: 5cm; margin: 48px 0 0 0; padding: 0; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; border-radius: 0; background: #000;">
+            <video autoplay muted loop playsinline style="width: 100vw; height: 100%; object-fit: cover; position: absolute; left: 0; top: 0;">
+                <source src="https://jkwinnersinvestment.github.io/JKWI-WEB/videos/intro1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+        <hr style="border: none; border-top: 1px solid #e3f0fc; margin: 0 0 32px 0;">
+        <!-- SECTION 7 END -->
+
+        <!-- SECTION 8: Newsletter -->
+        <section id="section-8" style="width: 100vw; height: 5cm; margin: 48px 0 0 0; padding: 0; position: relative; background: url('https://jkwinnersinvestment.github.io/JKWI-WEB/JKWI%20gallery/homepage/2.jpg') center center / cover no-repeat; display: flex; align-items: center; justify-content: center; border-radius: 0;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.35); z-index: 1;"></div>
+            <div style="background: transparent; border-radius: 18px; padding: 40px 32px; max-width: 600px; margin: 48px auto; text-align: center; box-shadow: 0 4px 24px rgba(30,60,114,0.10); position: relative; z-index: 2;">
+                <h2 style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 2.2em; color: #fff; margin-bottom: 18px; letter-spacing: 1px;">JKWI</h2>
+                <p style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 1.1em; color: #fff; line-height: 1.7; margin-bottom: 12px; background: transparent;">
+                    Stay updated with our latest news and offers<br>
+                    Subscribe to our newsletter for exclusive insights and opportunities
+                </p>
+                <a href="#" style="display: inline-block; margin-top: 18px; padding: 14px 38px; font-size: 1.1em; font-weight: bold; color: #fff; background: linear-gradient(90deg, #2a5298 0%, #1e3c72 100%); border: none; border-radius: 28px; box-shadow: 0 2px 12px rgba(30,60,114,0.12); text-decoration: none; transition: background 0.3s, transform 0.2s, box-shadow 0.2s; letter-spacing: 1px;">Subscribe Now</a>
+            </div>
+        </section>
+        <hr style="border: none; border-top: 1px solid #e3f0fc; margin: 0 0 32px 0;">
+        <!-- SECTION 8 END -->
+
+        <!-- SECTION 9: BUSINESS NEWS (Transparent Text Area) -->
+        <section id="section-9" style="width: 100vw; margin: 48px 0 0 0; padding: 32px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff;">
+            <h2 style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 2.4em; color: #1e3c72; font-weight: bold; letter-spacing: 2px; text-align: center; margin-bottom: 32px; background: transparent;">BUSINESS NEWS</h2>
+            <div style="display: flex; gap: 2cm; justify-content: center; align-items: flex-start; width: 100vw; background: transparent;">
+                <div style="display: flex; flex-direction: column; align-items: center; background: transparent;">
+                    <span style="font-weight: bold; font-size: 1.1em; color: #1e3c72; margin-bottom: 10px; background: transparent;">INTERNATIONAL</span>
+                    <div style="width: 6cm; height: 6cm; background: transparent; border-radius: 18px; box-shadow: 0 4px 16px rgba(30,60,114,0.10); display: flex; align-items: center; justify-content: center; font-size: 2em; color: #1e3c72; font-weight: bold;">w1</div>
+                    <span style="font-weight: bold; font-size: 1em; color: #1e3c72; margin-top: 10px; background: transparent;">widget</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; background: transparent;">
+                    <span style="font-weight: bold; font-size: 1.1em; color: #1e3c72; margin-bottom: 10px; background: transparent;">AFRICAN</span>
+                    <div style="width: 6cm; height: 6cm; background: transparent; border-radius: 18px; box-shadow: 0 4px 16px rgba(30,60,114,0.10); display: flex; align-items: center; justify-content: center; font-size: 2em; color: #1e3c72; font-weight: bold;">w2</div>
+                    <span style="font-weight: bold; font-size: 1em; color: #1e3c72; margin-top: 10px; background: transparent;">widget</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; background: transparent;">
+                    <span style="font-weight: bold; font-size: 1.1em; color: #1e3c72; margin-bottom: 10px; background: transparent;">LOCAL</span>
+                    <div style="width: 6cm; height: 6cm; background: transparent; border-radius: 18px; box-shadow: 0 4px 16px rgba(30,60,114,0.10); display: flex; align-items: center; justify-content: center; font-size: 2em; color: #1e3c72; font-weight: bold;">w3</div>
+                    <span style="font-weight: bold; font-size: 1em; color: #1e3c72; margin-top: 10px; background: transparent;">widget</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; background: transparent;">
+                    <span style="font-weight: bold; font-size: 1.1em; color: #1e3c72; margin-bottom: 10px; background: transparent;">JKWI</span>
+                    <div style="width: 6cm; height: 6cm; background: transparent; border-radius: 18px; box-shadow: 0 4px 16px rgba(30,60,114,0.10); display: flex; align-items: center; justify-content: center; font-size: 2em; color: #1e3c72; font-weight: bold;">w4</div>
+                    <span style="font-weight: bold; font-size: 1em; color: #1e3c72; margin-top: 10px; background: transparent;">widget</span>
+                </div>
+            </div>
+            <!-- Moving Text Widget -->
+            <div style="width: 100vw; overflow: hidden; margin-top: 40px; background: transparent;">
+                <div style="white-space: nowrap; display: inline-block; animation: marquee 14s linear infinite; font-size: 1.3em; color: #1565c0; font-weight: bold; padding: 18px 0; background: transparent;">
+                    This is a moving text widget. Replace this with your dynamic business news or announcements. It moves from right to left across the entire section.
+                </div>
+            </div>
+        </section>
+        <hr style="border: none; border-top: 1px solid #e3f0fc; margin: 0 0 32px 0;">
+        <!-- SECTION 9 END -->
+
+        <!-- SECTION 10: Full-width Slideshow -->
+        <section id="section-10" style="width: 100vw; min-height: 7cm; margin: 0; padding: 0; position: relative; overflow: hidden; background: #e3f0fc; display: flex; align-items: center; justify-content: center;">
+            <div id="slideshow-section10" style="width: 7.5cm; height: 6cm; position: relative;">
+                <img class="slide-img-10" src="https://jkwinnersinvestment.github.io/JKWI-WEB/work%20with%20us/investors.png" style="width: 7.5cm; height: 6cm; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 1; transform: scale(1) rotateY(0deg); transition: opacity 1s, filter 1s, transform 1s cubic-bezier(.4,2,.6,1); z-index: 2; filter: blur(0px);">
+                <img class="slide-img-10" src="https://jkwinnersinvestment.github.io/JKWI-WEB/work%20with%20us/partners.png" style="width: 7.5cm; height: 6cm; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transform: scale(1.1) rotateY(90deg); transition: opacity 1s, filter 1s, transform 1s cubic-bezier(.4,2,.6,1); z-index: 1; filter: blur(8px);">
+            </div>
+            <script>
+            window.addEventListener('DOMContentLoaded', function() {
+                let slideIndex10 = 0;
+                const slides10 = document.querySelectorAll('#slideshow-section10 .slide-img-10');
+                const effects = [
+                    {in: "opacity:1; filter:blur(0px); transform:scale(1) rotateY(0deg);", out: "opacity:0; filter:blur(8px); transform:scale(1.1) rotateY(90deg);"},
+                    {in: "opacity:1; filter:blur(0px); transform:scale(1.05) rotateX(0deg);", out: "opacity:0; filter:blur(8px); transform:scale(0.95) rotateX(90deg);"},
+                    {in: "opacity:1; filter:blur(0px); transform:scale(1) rotate(-2deg);", out: "opacity:0; filter:blur(8px); transform:scale(1.1) rotate(15deg);"},
+                    {in: "opacity:1; filter:blur(0px); transform:scale(1.1) rotateY(0deg);", out: "opacity:0; filter:blur(8px); transform:scale(0.9) rotateY(-90deg);"},
+                    {in: "opacity:1; filter:blur(0px); transform:scale(1) rotateX(0deg);", out: "opacity:0; filter:blur(8px); transform:scale(1.1) rotateX(-90deg);"}
+                ];
+                function showSlides10() {
+                    for (let i = 0; i < slides10.length; i++) {
+                        slides10[i].style.zIndex = '1';
+                        slides10[i].style.cssText += effects[i % effects.length].out + "width: 7.5cm; height: 6cm; object-fit: cover; position: absolute; left: 0; top: 0; transition: opacity 1s, filter 1s, transform 1s cubic-bezier(.4,2,.6,1);";
+                    }
+                    slideIndex10++;
+                    if (slideIndex10 > slides10.length) {slideIndex10 = 1;}
+                    slides10[slideIndex10-1].style.zIndex = '2';
+                    slides10[slideIndex10-1].style.cssText += effects[(slideIndex10-1) % effects.length].in + "width: 7.5cm; height: 6cm; object-fit: cover; position: absolute; left: 0; top: 0; transition: opacity 1s, filter 1s, transform 1s cubic-bezier(.4,2,.6,1);";
+                    setTimeout(showSlides10, 3500);
+                }
+                if (slides10.length > 0) showSlides10();
+            });
+            </script>
+        </section>
+        <hr style="border: none; border-top: 1px solid #e3f0fc; margin: 0 0 32px 0;">
+        <!-- SECTION 10 END -->
+
+        <!-- SECTION 11: Full-width Slideshow -->
+        <section id="section-11" style="width: 100vw; min-height: 7cm; margin: 0; padding: 0; position: relative; overflow: hidden; background: #e3f0fc; display: flex; align-items: center; justify-content: center;">
+            <div id="slideshow-section11" style="width: 7.5cm; height: 6cm; position: relative;">
+                <img class="slide-img-11" src="https://jkwinnersinvestment.github.io/JKWI-WEB/NEW%20LOGO%20PNG/SERVICE2.png" style="width: 7.5cm; height: 6cm; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 1; transition: opacity 1s; z-index: 2;">
+                <img class="slide-img-11" src="https://jkwinnersinvestment.github.io/JKWI-WEB/NEW%20LOGO%20PNG/FINANCE.png" style="width: 7.5cm; height: 6cm; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1s; z-index: 1;">
+                <img class="slide-img-11" src="https://jkwinnersinvestment.github.io/JKWI-WEB/NEW%20LOGO%20PNG/LEGAL.png" style="width: 7.5cm; height: 6cm; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1s; z-index: 1;">
+                <img class="slide-img-11" src="https://jkwinnersinvestment.github.io/JKWI-WEB/NEW%20LOGO%20PNG/MEDIA.png" style="width: 7.5cm; height: 6cm; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1s; z-index: 1;">
+                <img class="slide-img-11" src="https://jkwinnersinvestment.github.io/JKWI-WEB/NEW%20LOGO%20PNG/SOCIAL.png" style="width: 7.5cm; height: 6cm; object-fit: cover; position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 1s; z-index: 1;">
+            </div>
+            <script>
+            window.addEventListener('DOMContentLoaded', function() {
+                let slideIndex11 = 0;
+                const slides11 = document.querySelectorAll('#slideshow-section11 .slide-img-11');
+                function showSlides11() {
+                    for (let i = 0; i < slides11.length; i++) {
+                        slides11[i].style.opacity = '0';
+                        slides11[i].style.zIndex = '1';
+                    }
+                    slideIndex11++;
+                    if (slideIndex11 > slides11.length) {slideIndex11 = 1;}
+                    slides11[slideIndex11-1].style.opacity = '1';
+                    slides11[slideIndex11-1].style.zIndex = '2';
+                    setTimeout(showSlides11, 3500);
+                }
+                if (slides11.length > 0) showSlides11();
+            });
+            </script>
+        </section>
+        <hr style="border: none; border-top: 1px solid #e3f0fc; margin: 0 0 32px 0;">
+        <!-- SECTION 11 END -->
+
+        <!-- SECTION 12: Single Image -->
+        <section id="section-12" style="width: 100vw; display: flex; align-items: center; justify-content: center; background: #fff; padding: 48px 0;">
+            <img src="https://jkwinnersinvestment.github.io/JKWI-WEB/JKWI%20gallery/homepage/hiraki/Picture2.jpg" alt="Hierarchy" style="max-width: 90vw; max-height: 600px; width: auto; height: auto; border-radius: 18px; box-shadow: 0 8px 32px rgba(30,60,114,0.10);">
+        </section>
+    </main>
+    <!-- Add this just before </body> -->
+<div id="wizzard1-modal" style="display:none; position:fixed; z-index:10000; left:0; top:0; width:100vw; height:100vh; background:rgba(30,60,114,0.18); align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:18px; padding:32px 24px; box-shadow:0 4px 24px rgba(30,60,114,0.18); max-width:350px; width:95vw; text-align:center; margin:auto; position:relative; display:flex; flex-direction:column; align-items:center;">
+        <h2 style="color:#1e3c72; margin-top:0;">Login (Wizzard 1)</h2>
+        <input type="text" id="wizzard1-username" placeholder="Username" style="margin-bottom:14px; padding:10px; width:90%; border-radius:8px; border:1px solid #b6d6f6; font-size:1em;">
+        <input type="password" id="wizzard1-password" placeholder="Password" style="margin-bottom:18px; padding:10px; width:90%; border-radius:8px; border:1px solid #b6d6f6; font-size:1em;">
+        <button onclick="wizzard1Login()" style="padding:10px 32px; border-radius:24px; background:linear-gradient(90deg,#2a5298 0%,#1e3c72 100%); color:#fff; border:none; font-weight:bold; font-size:1.1em; margin-bottom:10px;">Sign In</button>
+        <button onclick="openWizzard2()" style="padding:10px 32px; border-radius:24px; background:linear-gradient(90deg,#43cea2 0%,#185a9d 100%); color:#fff; border:none; font-weight:bold; font-size:1.1em; margin-bottom:10px;">Register</button>
+        <button onclick="closeWizzard1()" style="padding:8px 24px; border-radius:24px; background:#e53935; color:#fff; border:none; font-weight:bold;">Cancel</button>
+        <div id="wizzard1-status" style="margin-top:12px; color:#e53935; font-size:1em;"></div>
+    </div>
+</div>
+
+<!-- Wizzard 2: Register Modal -->
+<div id="wizzard2-modal" style="display:none; position:fixed; z-index:10001; left:0; top:0; width:100vw; height:100vh; background:rgba(30,60,114,0.18); align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:18px; padding:32px 24px; box-shadow:0 4px 24px rgba(30,60,114,0.18); max-width:400px; width:95vw; text-align:left; margin:auto; position:relative; display:flex; flex-direction:column; align-items:center;">
+        <h2 style="color:#1e3c72; margin-top:0; text-align:center;">Register (Wizzard 2)</h2>
+        <form id="wizzard2-form" style="width:100%; display:flex; flex-direction:column; gap:12px;">
+            <div style="width:100%;">
+                <input type="text" id="reg-fullname" placeholder="Full Name" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+                <div id="msg-fullname" style="display:none; color:#2a5298; font-size:0.98em; margin-top:4px;">
+                    Please enter your name exactly as it appears on your identity document.
+                </div>
+            </div>
+            <div style="width:100%;">
+                <input type="text" id="reg-surname" placeholder="Surname" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+            </div>
+            <div style="width:100%;">
+                <input type="email" id="reg-email" placeholder="Email Address" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+                <div id="msg-email" style="display:none; color:#2a5298; font-size:0.98em; margin-top:4px;">
+                    Please enter an email address that will be verified and used for all communication with the Winners Family (everyone doing business with JK WINNERS INVESTMENT). <b>It is very important to provide the correct email address for verification processes.</b>
+                </div>
+            </div>
+            <div style="width:100%;">
+                <input type="tel" id="reg-phone" placeholder="Phone Number" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+                <div id="msg-phone" style="display:none; color:#2a5298; font-size:0.98em; margin-top:4px;">
+                    Please enter a valid phone number. This number will be used for important notifications and verification.
+                </div>
+            </div>
+            <div style="width:100%;">
+                <input type="text" id="reg-id" placeholder="ID/Passport Number" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%; margin-bottom:2px;">
+                <div id="id-type-options" style="display:none; margin-bottom:4px;">
+                    <label style="font-size:0.95em; margin-right:10px;">
+                        <input type="checkbox" id="chk-sa-id" style="width:14px; height:14px; vertical-align:middle; margin-right:3px;"> South African ID
+                    </label>
+                    <label style="font-size:0.95em;">
+                        <input type="checkbox" id="chk-passport" style="width:14px; height:14px; vertical-align:middle; margin-right:3px;"> Passport
+                    </label>
+                </div>
+                <div id="msg-id" style="display:none; color:#2a5298; font-size:0.98em; margin-top:4px;">
+                    Please enter your ID or Passport number exactly as it appears on your identity document.
+                </div>
+                <div id="sa-id-status" style="display:none; color:#e53935; font-size:0.95em; margin-top:2px;"></div>
+            </div>
+            <div style="width:100%;">
+                <input type="text" id="reg-address" placeholder="Physical Address" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+                <button type="button" id="addressMapBtn" style="display:none; margin-top:4px; padding:6px 16px; border-radius:16px; background:linear-gradient(90deg,#43cea2 0%,#185a9d 100%); color:#fff; border:none; font-size:0.98em;">Use Google Map Address</button>
+                <div id="addressSuggestions" style="display:none; background:#fff; border:1px solid #b6d6f6; border-radius:8px; margin-top:2px; max-height:160px; overflow-y:auto; font-size:0.98em; z-index:10002; position:absolute; left:0; right:0; width:100%; box-shadow:0 4px 16px rgba(30,60,114,0.10);"></div>
+            </div>
+            <input type="text" id="reg-city" placeholder="City/Town" required autocomplete="off" style="padding:10px; border-radius:8px; border:1px solid #b6d6f6;">
+            <div id="citySuggestions" style="display:none; background:#fff; border:1px solid #b6d6f6; border-radius:8px; margin-top:2px; max-height:180px; overflow-y:auto; font-size:0.98em; z-index:10002; position:absolute; left:0; right:0; width:100%; box-shadow:0 4px 16px rgba(30,60,114,0.10);"></div>
+            <div style="width:100%; position:relative;">
+                <input type="text" id="reg-country" placeholder="Country" required autocomplete="off" style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;">
+                <div id="countrySuggestions" style="display:none; background:#fff; border:1px solid #b6d6f6; border-radius:8px; margin-top:2px; max-height:180px; overflow-y:auto; font-size:0.98em; z-index:10002; position:absolute; left:0; right:0; width:100%; box-shadow:0 4px 16px rgba(30,60,114,0.10);"></div>
+            </div>
+            <div style="width:100%; position:relative;">
+                <input type="text" id="reg-occupation" placeholder="Occupation" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%;"
+                    readonly
+                    onclick="activateOccupationRules()"
+                    onfocus="activateOccupationRules()"
+                >
+                <div id="occupation-type-options" style="display:none; margin-top:4px;">
+                    <label style="font-size:0.95em; margin-right:10px;">
+                        <input type="checkbox" id="chk-personal" style="width:14px; height:14px; vertical-align:middle; margin-right:3px;"> Personal
+                    </label>
+                    <label style="font-size:0.95em;">
+                        <input type="checkbox" id="chk-business" style="width:14px; height:14px; vertical-align:middle; margin-right:3px;"> Business
+                    </label>
+                </div>
+            </div>
+            <div id="personal-occupation-list" style="display:none; margin-top:4px;">
+                <select id="occupation-select" style="width:100%; padding:8px; border-radius:8px; border:1px solid #b6d6f6; margin-bottom:4px;">
+                    <option value="">Select Job Description</option>
+                    <option>Accountant</option>
+                    <option>Administrator</option>
+                    <option>Architect</option>
+                    <option>Artisan</option>
+                    <option>Auditor</option>
+                    <option>Banker</option>
+                    <option>Bricklayer</option>
+                    <option>Builder</option>
+                    <option>Carpenter</option>
+                    <option>Chef</option>
+                    <option>Cleaner</option>
+                    <option>Consultant</option>
+                    <option>Doctor</option>
+                    <option>Driver</option>
+                    <option>Electrician</option>
+                    <option>Engineer</option>
+                    <option>Farmer</option>
+                    <option>Gardener</option>
+                    <option>IT Specialist</option>
+                    <option>Lawyer</option>
+                    <option>Manager</option>
+                    <option>Mechanic</option>
+                    <option>Nurse</option>
+                    <option>Plumber</option>
+                    <option>Police Officer</option>
+                    <option>Receptionist</option>
+                    <option>Scientist</option>
+                    <option>Security Officer</option>
+                    <option>Shop Assistant</option>
+                    <option>Student</option>
+                    <option>Teacher</option>
+                    <option>Technician</option>
+                    <option>Unemployed</option>
+                    <option>Other (type below)</option>
+                </select>
+                <input type="text" id="occupation-other" placeholder="Type your occupation" style="display:none; width:100%; padding:8px; border-radius:8px; border:1px solid #b6d6f6;">
+            </div>
+            <div id="business-occupation-list" style="display:none; margin-top:4px;">
+                <select id="business-type-select" style="width:100%; padding:8px; border-radius:8px; border:1px solid #b6d6f6; margin-bottom:4px;">
+                    <option value="">Select Type of Enterprise</option>
+                    <option>Private Company (Pty) Ltd</option>
+                    <option>Public Company (Ltd)</option>
+                    <option>Non-Profit Company (NPC)</option>
+                    <option>Co-operative</option>
+                    <option>Sole Proprietor</option>
+                    <option>Partnership</option>
+                    <option>Trust</option>
+                    <option>Other</option>
+                </select>
+                <input type="text" id="business-reg-number" placeholder="Business Registration Number" style="display:none; width:100%; padding:8px; border-radius:8px; border:1px solid #b6d6f6;">
+            </div>
+            <button type="button" onclick="nextWizzard2()" style="padding:10px 32px; border-radius:24px; background:linear-gradient(90deg,#2a5298 0%,#1e3c72 100%); color:#fff; border:none; font-weight:bold; font-size:1.1em;">Next</button>
+            <button type="button" onclick="closeWizzard2()" style="padding:8px 24px; border-radius:24px; background:#e53935; color:#fff; border:none; font-weight:bold;">Cancel</button>
+        </form>
+        <div id="wizzard2-status" style="margin-top:12px; color:#e53935; font-size:1em; text-align:center;"></div>
+    </div>
+</div>
+
+<!-- Add this after your Wizzard 2 modal, before </body> -->
+<div id="wizzard3-modal" style="display:none; position:fixed; z-index:10002; left:0; top:0; width:100vw; height:100vh; background:rgba(30,60,114,0.18); align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:18px; padding:32px 24px; box-shadow:0 4px 24px rgba(30,60,114,0.18); max-width:400px; width:95vw; text-align:left; margin:auto; position:relative; display:flex; flex-direction:column; align-items:center;">
+        <h2 style="color:#1e3c72; margin-top:0; text-align:center;">Verification (Wizzard 3)</h2>
+        <form id="wizzard3-form" style="width:100%; display:flex; flex-direction:column; gap:18px;">
+            <div style="width:100%;">
+                <label for="verify-phone" style="font-size:1em; color:#2a5298;">Phone Number Verification</label>
+                <input type="text" id="verify-phone" placeholder="Enter code sent to your phone" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%; margin-top:4px;">
+                <button type="button" id="send-phone-code" style="margin-top:6px; padding:6px 18px; border-radius:16px; background:linear-gradient(90deg,#43cea2 0%,#185a9d 100%); color:#fff; border:none; font-size:0.98em;">Send Code</button>
+                <div id="phone-verification-status" style="color:#e53935; font-size:0.98em; margin-top:4px;"></div>
+            </div>
+            <div style="width:100%;">
+                <label for="verify-email" style="font-size:1em; color:#2a5298;">Email Address Verification</label>
+                <input type="text" id="verify-email" placeholder="Enter code sent to your email" required style="padding:10px; border-radius:8px; border:1px solid #b6d6f6; width:100%; margin-top:4px;">
+                <button type="button" id="send-email-code" style="margin-top:6px; padding:6px 18px; border-radius:16px; background:linear-gradient(90deg,#43cea2 0%,#185a9d 100%); color:#fff; border:none; font-size:0.98em;">Send Code</button>
+                <div id="email-verification-status" style="color:#e53935; font-size:0.98em; margin-top:4px;"></div>
+            </div>
+            <button type="button" onclick="closeWizzard3()" style="padding:8px 24px; border-radius:24px; background:#e53935; color:#fff; border:none; font-weight:bold;">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<script>
+// Show the login wizzard when the login icon is clicked
+document.addEventListener('DOMContentLoaded', function() {
+    // Find the login icon (third .icon-link in .header-icons)
+    const headerIcons = document.querySelector('.header-icons');
+    if (headerIcons) {
+        const iconLinks = headerIcons.querySelectorAll('.icon-link');
+        if (iconLinks.length >= 3) {
+            iconLinks[2].addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('wizzard1-modal').style.display = 'flex';
+            });
+        }
+    }
+});
+
+function closeWizzard1() {
+    document.getElementById('wizzard1-modal').style.display = 'none';
+    document.getElementById('wizzard1-status').textContent = '';
+    document.getElementById('wizzard1-username').value = '';
+    document.getElementById('wizzard1-password').value = '';
+}
+
+function wizzard1Login() {
+    // Dummy login logic for demonstration
+    var user = document.getElementById('wizzard1-username').value.trim();
+    var pass = document.getElementById('wizzard1-password').value.trim();
+    if (!user || !pass) {
+        document.getElementById('wizzard1-status').textContent = "Please enter both username and password.";
+        return;
+    }
+    document.getElementById('wizzard1-status').style.color = "#43a047";
+    document.getElementById('wizzard1-status').textContent = "Login successful (demo only).";
+    setTimeout(closeWizzard1, 1200);
+}
+
+function openWizzard2() {
+    document.getElementById('wizzard1-modal').style.display = 'none';
+    document.getElementById('wizzard2-modal').style.display = 'flex';
+    document.getElementById('wizzard2-status').textContent = '';
+    document.getElementById('wizzard2-form').reset();
+}
+function closeWizzard2() {
+    document.getElementById('wizzard2-modal').style.display = 'none';
+    document.getElementById('wizzard2-status').textContent = '';
+}
+function nextWizzard2() {
+    // Simple validation (remove password checks)
+    var fullname = document.getElementById('reg-fullname').value.trim();
+    var email = document.getElementById('reg-email').value.trim();
+    var phone = document.getElementById('reg-phone').value.trim();
+    var id = document.getElementById('reg-id').value.trim();
+    var address = document.getElementById('reg-address').value.trim();
+    var city = document.getElementById('reg-city').value.trim();
+    var country = document.getElementById('reg-country').value.trim();
+    var occupation = document.getElementById('reg-occupation').value.trim();
+    var surname = document.getElementById('reg-surname').value.trim();
+
+    if (!fullname || !email || !phone || !id || !address || !city || !country || !occupation || !surname) {
+        document.getElementById('wizzard2-status').textContent = "Please fill in all fields.";
+        return;
+    }
+
+    // Save all data to localStorage using the name as the key
+    const userData = {
+        fullname, surname, email, phone, id, address, city, country, occupation
+    };
+    localStorage.setItem('wizzard2_' + fullname.toLowerCase(), JSON.stringify(userData));
+
+    document.getElementById('wizzard2-status').style.color = "#43a047";
+    document.getElementById('wizzard2-status').textContent = "Proceeding to next step (demo only).";
+
+    // Show Wizzard 3 and hide Wizzard 2
+    setTimeout(function() {
+        document.getElementById('wizzard2-modal').style.display = 'none';
+        document.getElementById('wizzard3-modal').style.display = 'flex';
+    }, 800);
+}
+
+// Autofill logic for Wizzard 2
+document.addEventListener('DOMContentLoaded', function() {
+    const fullnameInput = document.getElementById('reg-fullname');
+    let autofillBtn = document.createElement('button');
+    autofillBtn.type = "button";
+    autofillBtn.textContent = "Auto Fill";
+    autofillBtn.style.display = "none";
+    autofillBtn.style.marginLeft = "8px";
+    autofillBtn.style.padding = "6px 18px";
+    autofillBtn.style.borderRadius = "16px";
+    autofillBtn.style.background = "linear-gradient(90deg,#43cea2 0%,#185a9d 100%)";
+    autofillBtn.style.color = "#fff";
+    autofillBtn.style.border = "none";
+    autofillBtn.style.fontSize = "0.98em";
+    autofillBtn.style.cursor = "pointer";
+
+    // Insert the autofill button after the fullname input
+    const fullnameDiv = fullnameInput.parentNode;
+    fullnameDiv.appendChild(autofillBtn);
+
+    fullnameInput.addEventListener('input', function() {
+        const key = 'wizzard2_' + fullnameInput.value.trim().toLowerCase();
+        if (localStorage.getItem(key)) {
+            autofillBtn.style.display = "inline-block";
+        } else {
+            autofillBtn.style.display = "none";
+        }
+    });
+
+    autofillBtn.addEventListener('click', function() {
+        const key = 'wizzard2_' + fullnameInput.value.trim().toLowerCase();
+        const data = localStorage.getItem(key);
+        if (data) {
+            const userData = JSON.parse(data);
+            document.getElementById('reg-surname').value = userData.surname || '';
+            document.getElementById('reg-email').value = userData.email || '';
+            document.getElementById('reg-phone').value = userData.phone || '';
+            document.getElementById('reg-id').value = userData.id || '';
+            document.getElementById('reg-address').value = userData.address || '';
+            document.getElementById('reg-city').value = userData.city || '';
+            document.getElementById('reg-country').value = userData.country || '';
+            document.getElementById('reg-occupation').value = userData.occupation || '';
+            autofillBtn.style.display = "none";
+        }
+    });
+});
+
+// Show/hide info messages and checkboxes on focus for Wizzard 2 ID field
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('reg-fullname').addEventListener('focus', function() {
+        document.getElementById('msg-fullname').style.display = 'block';
+    });
+    document.getElementById('reg-fullname').addEventListener('blur', function() {
+        document.getElementById('msg-fullname').style.display = 'none';
+    });
+
+    document.getElementById('reg-email').addEventListener('focus', function() {
+        document.getElementById('msg-email').style.display = 'block';
+    });
+    document.getElementById('reg-email').addEventListener('blur', function() {
+        document.getElementById('msg-email').style.display = 'none';
+    });
+
+    document.getElementById('reg-phone').addEventListener('focus', function() {
+        document.getElementById('msg-phone').style.display = 'block';
+    });
+    document.getElementById('reg-phone').addEventListener('blur', function() {
+        document.getElementById('msg-phone').style.display = 'none';
+    });
+
+    document.getElementById('reg-id').addEventListener('focus', function() {
+        document.getElementById('msg-id').style.display = 'block';
+        idTypeOptions.style.display = 'block';
+    });
+    document.getElementById('reg-id').addEventListener('blur', function() {
+        setTimeout(function() {
+            document.getElementById('msg-id').style.display = 'none';
+            idTypeOptions.style.display = 'none';
+            saIdStatus.style.display = 'none';
+        }, 200); // allow click on checkbox
+    });
+
+    const regId = document.getElementById('reg-id');
+    const idTypeOptions = document.getElementById('id-type-options');
+    const chkSaId = document.getElementById('chk-sa-id');
+    const chkPassport = document.getElementById('chk-passport');
+    const saIdStatus = document.getElementById('sa-id-status');
+
+    // Only one checkbox can be checked at a time
+    chkSaId.addEventListener('change', function() {
+        if (chkSaId.checked) {
+            chkPassport.checked = false;
+            saIdStatus.style.display = 'block';
+            validateSouthAfricanID(regId.value);
+        } else {
+            saIdStatus.style.display = 'none';
+        }
+    });
+    chkPassport.addEventListener('change', function() {
+        if (chkPassport.checked) {
+            chkSaId.checked = false;
+            saIdStatus.style.display = 'none';
+        }
+    });
+
+    // Live validation for South African ID
+    regId.addEventListener('input', function() {
+        if (chkSaId.checked) {
+            saIdStatus.style.display = 'block';
+            validateSouthAfricanID(regId.value);
+        } else {
+            saIdStatus.style.display = 'none';
+        }
+    });
+
+    function validateSouthAfricanID(id) {
+        // South African ID: 13 digits, Luhn check, valid date
+        if (!/^\d{13}$/.test(id)) {
+            saIdStatus.style.color = "#e53935";
+            saIdStatus.textContent = "ID number must be exactly 13 digits.";
+            return false;
+        }
+        // Date check (YYMMDD)
+        var yy = parseInt(id.substr(0,2),10);
+        var mm = parseInt(id.substr(2,2),10);
+        var dd = parseInt(id.substr(4,2),10);
+        var currentYear = new Date().getFullYear() % 100;
+        var century = (yy <= currentYear ? 2000 : 1900);
+        var birthDate = new Date(century + yy, mm - 1, dd);
+        if (birthDate.getFullYear() !== century + yy || birthDate.getMonth() !== mm - 1 || birthDate.getDate() !== dd) {
+            saIdStatus.style.color = "#e53935";
+            saIdStatus.textContent = "Invalid date in ID number.";
+            return false;
+        }
+        // Luhn check
+        if (!luhnCheck(id)) {
+            saIdStatus.style.color = "#e53935";
+            saIdStatus.textContent = "Invalid South African ID number (checksum failed).";
+            return false;
+        }
+        saIdStatus.style.color = "#43a047";
+        saIdStatus.textContent = "South African ID number is valid.";
+        return true;
+    }
+
+    function luhnCheck(value) {
+        let sum = 0;
+        let alt = false;
+        for (let i = value.length - 1; i >= 0; i--) {
+            let n = parseInt(value.charAt(i), 10);
+            if (alt) {
+                n *= 2;
+                if (n > 9) n -= 9;
+            }
+            sum += n;
+            alt = !alt;
+        }
+        return sum % 10 === 0;
+    }
+});
+
+
+// Google Places API autocomplete for address
+let autocompleteService;
+let addressInput = document.getElementById('reg-address');
+let suggestionsBox = document.getElementById('addressSuggestions');
+let addressMapBtn = document.getElementById('addressMapBtn');
+
+// Show Google Map Address button on focus
+addressInput.addEventListener('focus', function() {
+    addressMapBtn.style.display = 'inline-block';
+});
+
+// Hide button and suggestions on blur (with delay to allow click)
+addressInput.addEventListener('blur', function() {
+    setTimeout(() => {
+        addressMapBtn.style.display = 'none';
+        suggestionsBox.style.display = 'none';
+    }, 200);
+});
+
+// Show suggestions as user types
+
+addressInput.addEventListener('input', function() {
+    let val = addressInput.value.trim();
+    if (!val) {
+        suggestionsBox.style.display = 'none';
+        return;
+    }
+    if (!window.google || !window.google.maps || !window.google.maps.places) {
+        loadGooglePlacesApi();
+        return;
+    }
+    if (!autocompleteService) {
+        autocompleteService = new google.maps.places.AutocompleteService();
+    }
+    autocompleteService.getPlacePredictions({ input: val }, function(predictions, status) {
+        if (status !== google.maps.places.PlacesServiceStatus.OK || !predictions) {
+            suggestionsBox.style.display = 'none';
+            return;
+        }
+        suggestionsBox.innerHTML = '';
+        predictions.forEach(function(pred) {
+            let div = document.createElement('div');
+            div.textContent = pred.description;
+            div.style.padding = '8px 12px';
+            div.style.cursor = 'pointer';
+            div.onmousedown = function() {
+                addressInput.value = pred.description;
+                suggestionsBox.style.display = 'none';
+            };
+            div.onmouseover = function() {
+                div.style.background = '#e3f0fc';
+            };
+            div.onmouseout = function() {
+                div.style.background = '#fff';
+            };
+            suggestionsBox.appendChild(div);
+        });
+        suggestionsBox.style.display = 'block';
+    });
+});
+
+// Show suggestions box on focus if input has value
+addressInput.addEventListener('focus', function() {
+    if (addressInput.value.trim()) {
+        addressInput.dispatchEvent(new Event('input'));
+    }
+});
+
+// Google Map Address button click (optional: open Google Maps)
+addressMapBtn.onclick = function() {
+    let val = addressInput.value.trim();
+    if (val) {
+        window.open('https://www.google.com/maps/search/' + encodeURIComponent(val), '_blank');
+    }
+};
+
+// Load Google Places API if not loaded
+function loadGooglePlacesApi() {
+    if (window.google && window.google.maps && window.google.maps.places) return;
+    if (document.getElementById('googlePlacesScript')) return;
+    let script = document.createElement('script');
+    script.id = 'googlePlacesScript';
+    script.src = "https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places";
+    script.async = true;
+    document.body.appendChild(script);
+}
+
+// OCCUPATION LOGIC
+document.addEventListener('DOMContentLoaded', function() {
+    const chkPersonal = document.getElementById('chk-personal');
+    const personalOccupationList = document.getElementById('personal-occupation-list');
+    const occupationSelect = document.getElementById('occupation-select');
+    const occupationOther = document.getElementById('occupation-other');
+    const regOccupation = document.getElementById('reg-occupation');
+    const chkBusiness = document.getElementById('chk-business');
+    const businessOccupationList = document.getElementById('business-occupation-list');
+    const businessTypeSelect = document.getElementById('business-type-select');
+    const businessRegNumber = document.getElementById('business-reg-number');
+
+    chkPersonal.addEventListener('change', function() {
+        if (chkPersonal.checked) {
+            personalOccupationList.style.display = 'block';
+            regOccupation.value = '';
+        } else {
+            personalOccupationList.style.display = 'none';
+        }
+    });
+
+    chkBusiness.addEventListener('change', function() {
+        if (chkBusiness.checked) {
+            document.getElementById('chk-personal').checked = false;
+            businessOccupationList.style.display = 'block';
+            regOccupation.value = '';
+        } else {
+            businessOccupationList.style.display = 'none';
+            businessRegNumber.style.display = 'none';
+        }
+    });
+
+    occupationSelect.addEventListener('change', function() {
+        if (occupationSelect.value === "Other (type below)") {
+            occupationOther.style.display = 'block';
+            regOccupation.value = '';
+        } else {
+            occupationOther.style.display = 'none';
+            regOccupation.value = occupationSelect.value;
+        }
+    });
+    occupationOther.addEventListener('input', function() {
+        regOccupation.value = occupationOther.value;
+    });
+
+    businessTypeSelect.addEventListener('change', function() {
+        if (businessTypeSelect.value) {
+            businessRegNumber.style.display = 'block';
+            regOccupation.value = businessTypeSelect.value;
+        } else {
+            businessRegNumber.style.display = 'none';
+            regOccupation.value = '';
+        }
+    });
+
+    businessRegNumber.addEventListener('input', function() {
+        // Optionally, you can add validation here
+        // regOccupation.value = businessTypeSelect.value + " - " + businessRegNumber.value;
+    });
+});
+
+function activateOccupationRules() {
+    // Show occupation type options and keep them visible until one is checked
+    const occupationTypeOptions = document.getElementById('occupation-type-options');
+    occupationTypeOptions.style.display = 'block';
+
+    // Keep showing until one is checked
+    function keepVisible() {
+        const chkPersonal = document.getElementById('chk-personal');
+        const chkBusiness = document.getElementById('chk-business');
+        if (!chkPersonal.checked && !chkBusiness.checked) {
+            occupationTypeOptions.style.display = 'block';
+        } else {
+            occupationTypeOptions.style.display = 'none';
+        }
+    }
+
+    // Attach change listeners only once
+    if (!activateOccupationRules._listenersAdded) {
+        document.getElementById('chk-personal').addEventListener('change', keepVisible);
+        document.getElementById('chk-business').addEventListener('change', keepVisible);
+        activateOccupationRules._listenersAdded = true;
+    }
+}
+
+// Add this to your <script> section
+
+const southAfricanCities = [
+    "Johannesburg", "Cape Town", "Durban", "Pretoria", "Port Elizabeth", "Bloemfontein", "East London", "Polokwane", "Nelspruit", "Kimberley",
+    "Pietermaritzburg", "Rustenburg", "Welkom", "George", "Mthatha", "Vereeniging", "Benoni", "Tembisa", "Boksburg", "Soweto", "Randburg",
+    "Midrand", "Centurion", "Springs", "Witbank", "Klerksdorp", "Potchefstroom", "Middelburg", "Vanderbijlpark", "Uitenhage", "Queenstown",
+    "Stellenbosch", "Mossel Bay", "Upington", "Ladysmith", "Mahikeng", "Grahamstown", "Beaufort West", "Knysna", "Hermanus", "Secunda",
+    "Emalahleni", "Sasolburg", "Carletonville", "Vryheid", "Phalaborwa", "Lephalale", "Mokopane", "Thohoyandou", "Tzaneen", "Louis Trichardt",
+    "Other"
+];
+
+const cityInput = document.getElementById('reg-city');
+const citySuggestions = document.getElementById('citySuggestions');
+
+cityInput.addEventListener('focus', function() {
+    showCitySuggestions('');
+});
+
+cityInput.addEventListener('input', function() {
+    showCitySuggestions(cityInput.value.trim());
+});
+
+function showCitySuggestions(filter) {
+    let val = filter.toLowerCase();
+    let matches = southAfricanCities.filter(city => city.toLowerCase().startsWith(val) || city === "Other");
+    citySuggestions.innerHTML = '';
+    matches.forEach(city => {
+        const div = document.createElement('div');
+        div.textContent = city;
+        div.style.padding = '8px 12px';
+        div.style.cursor = 'pointer';
+        div.onmousedown = function() {
+            if (city === "Other") {
+                cityInput.value = "";
+                cityInput.readOnly = false;
+                cityInput.placeholder = "Type your city/town";
+                citySuggestions.style.display = 'none';
+                cityInput.focus();
+            } else {
+                cityInput.value = city;
+                citySuggestions.style.display = 'none';
+                cityInput.readOnly = true;
+            }
+        };
+        div.onmouseover = function() { div.style.background = '#e3f0fc'; };
+        div.onmouseout = function() { div.style.background = '#fff'; };
+        citySuggestions.appendChild(div);
+    });
+    citySuggestions.style.display = 'block';
+}
+
+cityInput.addEventListener('blur', function() {
+    setTimeout(() => {
+        citySuggestions.style.display = 'none';
+    }, 200);
+});
+
+// Add this to your <script> section
+
+const allCountries = [
+    "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan",
+    "Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana",
+    "Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad",
+    "Chile","China","Colombia","Comoros","Congo (Congo-Brazzaville)","Costa Rica","Croatia","Cuba","Cyprus","Czechia (Czech Republic)",
+    "Democratic Republic of the Congo","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea",
+    "Eritrea","Estonia","Eswatini (fmr. " + "Swaziland)","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana",
+    "Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Holy See","Honduras","Hungary","Iceland","India","Indonesia",
+    "Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos",
+    "Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives",
+    "Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco",
+    "Mozambique","Myanmar (formerly Burma)","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea",
+    "North Macedonia","Norway","Oman","Pakistan","Palau","Palestine State","Panama","Papua New Guinea","Paraguay","Peru","Philippines",
+    "Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa",
+    "San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia",
+    "Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland",
+    "Syria","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan",
+    "Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu",
+    "Venezuela","Vietnam","Yemen","Zambia","Zimbabwe","Other"
+];
+
+const countryInput = document.getElementById('reg-country');
+const countrySuggestions = document.getElementById('countrySuggestions');
+
+countryInput.addEventListener('focus', function() {
+    showCountrySuggestions('');
+});
+
+countryInput.addEventListener('input', function() {
+    showCountrySuggestions(countryInput.value.trim());
+});
+
+function showCountrySuggestions(filter) {
+    let val = filter.toLowerCase();
+    let matches = allCountries.filter(country => country.toLowerCase().startsWith(val) || country === "Other");
+    countrySuggestions.innerHTML = '';
+    matches.forEach(country => {
+        const div = document.createElement('div');
+        div.textContent = country;
+        div.style.padding = '8px 12px';
+        div.style.cursor = 'pointer';
+        div.onmousedown = function() {
+            if (country === "Other") {
+                countryInput.value = "";
+                countryInput.readOnly = false;
+                countryInput.placeholder = "Type your country";
+                countrySuggestions.style.display = 'none';
+                countryInput.focus();
+            } else {
+                countryInput.value = country;
+                countrySuggestions.style.display = 'none';
+                countryInput.readOnly = true;
+            }
+        };
+        div.onmouseover = function() { div.style.background = '#e3f0fc'; };
+        div.onmouseout = function() { div.style.background = '#fff'; };
+        countrySuggestions.appendChild(div);
+    });
+    countrySuggestions.style.display = 'block';
+}
+
+countryInput.addEventListener('blur', function() {
+    setTimeout(() => {
+        countrySuggestions.style.display = 'none';
+    }, 200);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    let sentPhoneCode = "12345678"; // Demo 8-digit code for SMS
+    let sentEmailCode = "87654321"; // Demo 8-digit code for Email
+
+    // SMS Verification Demo
+    document.getElementById('send-phone-code').onclick = function() {
+        const phone = document.getElementById('reg-phone').value.trim();
+        document.getElementById('phone-verification-status').style.color = "#1565c0";
+        document.getElementById('phone-verification-status').textContent =
+            "Demo: Verification code sent to " + phone + " (code: " + sentPhoneCode + ")";
+    };
+
+    document.getElementById('verify-phone').addEventListener('input', function() {
+        if (this.value.trim() === sentPhoneCode) {
+            document.getElementById('phone-verification-status').style.color = "#43a047";
+            document.getElementById('phone-verification-status').textContent = "Phone number verified!";
+        } else {
+            document.getElementById('phone-verification-status').style.color = "#e53935";
+            document.getElementById('phone-verification-status').textContent = "Invalid code.";
+        }
+    });
+
+    // Email Verification Demo
+    document.getElementById('send-email-code').onclick = function() {
+        const email = document.getElementById('reg-email').value.trim();
+        document.getElementById('email-verification-status').style.color = "#1565c0";
+        document.getElementById('email-verification-status').textContent =
+            "Demo: Verification code sent to " + email + " (code: " + sentEmailCode + ")";
+    };
+
+    document.getElementById('verify-email').addEventListener('input', function() {
+        if (this.value.trim() === sentEmailCode) {
+            document.getElementById('email-verification-status').style.color = "#43a047";
+            document.getElementById('email-verification-status').textContent = "Email address verified!";
+        } else {
+            document.getElementById('email-verification-status').style.color = "#e53935";
+            document.getElementById('email-verification-status').textContent = "Invalid code.";
+        }
+    });
+});
+</script>
+</body>
+</html>
