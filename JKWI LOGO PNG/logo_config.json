@@ -1,0 +1,50 @@
+{
+  "name": "JKWI Logo Management System",
+  "version": "1.0.0",
+  "description": "A comprehensive logo management system for JK Winners Investment",
+  "repository": "https://github.com/jkwinnersinvestment/JKWI-WEB",
+  "logo_base_url": "https://raw.githubusercontent.com/jkwinnersinvestment/JKWI-WEB/main/JKWI%20LOGO%20PNG",
+  "categories": [
+    "company",
+    "division", 
+    "partners",
+    "investors"
+  ],
+  "supported_formats": [
+    "png",
+    "jpg",
+    "jpeg",
+    "svg",
+    "webp"
+  ],
+  "api_endpoints": {
+    "get_logo_by_name": "get_logo_by_name(name: str)",
+    "get_logos_by_category": "get_logos_by_category(category: str)",
+    "search_logos": "search_logos(query: str)",
+    "get_company_logo": "get_company_logo(variant: str = 'main')",
+    "get_all_logos": "get_all_logos()",
+    "to_json": "to_json(pretty: bool = True)",
+    "generate_html_gallery": "generate_html_gallery()"
+  },
+  "usage_examples": {
+    "python": {
+      "import": "from logo_manager import JKWILogoManager",
+      "initialize": "manager = JKWILogoManager()",
+      "get_company_logo": "logo = manager.get_company_logo('white')",
+      "get_division_logos": "logos = manager.get_logos_by_category('division')",
+      "search": "results = manager.search_logos('investment')",
+      "export_json": "json_data = manager.to_json()"
+    },
+    "api_responses": {
+      "logo_object": {
+        "name": "string",
+        "category": "string",
+        "filename": "string", 
+        "url": "string",
+        "description": "string",
+        "size_hint": "string|null",
+        "color_variant": "string|null"
+      }
+    }
+  }
+}
